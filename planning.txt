@@ -1,0 +1,51 @@
+
+How albums were selected:
+Compilation albums were avoided.
+Highest selling albums of decade (based on RIAA) were placed into genre 
+If that album had no vinyl sales on eBay, move to next highest selling one.
+
+
+
+Data to Collect:
+Do this for every album, once for vinyl and once for CD.
+
+
+Chart 1
+Hotness Measure:
+Total sold in the last weeks or so + currently selling + a few poins for total bid counts
+
+Chart 2
+Average revenue earned per copy
+
+Omitted BestSelling Albums:
+
+90s:
+No Vinyl:
+Shania Twian Come on Over
+Garth Brooks - Double Live
+
+
+00s
+No vinyl available for any plaitnum country album
+Shania Twain - Up
+Carrie Underwoods - Some Hearts
+Dixie Chicks - Home
+Wilson Gretchen - Here for the Party 
+Kenney Chesney When the Sun Goes Down
+Keith Urban Be Here
+Zac Brown Band - THe Foundation
+Toby Keith - Shock'n Y'all
+Big & Rich - Horse of a Different COlor
+Tim McGraw LIVE LIKE YOU WERE DYING
+Brad Paisely Time well wasted
+Josh Turner Your Man
+Kenny Chesney No Shirt, No Shoes, No Problems
+
+
+'12
+Too Pop:
+Taylor Swift - Red
+
+No Vinyl:
+Carrie Underwood - Blown Away
+Jason Aldean Blown Away
