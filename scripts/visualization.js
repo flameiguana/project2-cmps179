@@ -13,7 +13,7 @@ var mouseY = 0;
 
 var VIEW_ANGLE = 45;
 var ASPECT = WIDTH/HEIGHT;
-var NEAR = 0.1;
+var NEAR = -1000;
 var FAR = 1000;
 
 
@@ -29,28 +29,40 @@ var camera = new THREE.OrthographicCamera (
 	HEIGHT / -2,
 	NEAR,
 	FAR);
+camera.position.set(0,0,500);
+camera.lookAt(scene.position);
 
 var scene = new THREE.Scene();
+scene.add(camera);
 
 /* ------------Set up geometry*-----------------------*/
-var color = 0x0000C0;
-var platform = new baseChunk(80, color, "img/pop.jpg", "Hip Hop");
-scene.add(platform);
+var unit = 80;
+var rows = 4;
+var segments = [];
+var images = ["img/pop.jpg", "img/hiphop.jpg", "img/rock.jpg", "img/country.jpg"];
+var colors = [0xFFF826, 0xBAF325, 0xCD1F94, 0x7A26BA];
+
+for(var i = 0; i < rows; i++){
+	var z = 0 - i * unit + unit/2;
+	segments[i] = new baseChunk(z, unit, colors[i], images[i], "Hip Hop");
+	scene.add(segments[i]);
+}
 
 /*-----------------Lighting--------------------*/
 var directionalLight = new THREE.DirectionalLight(0xFFFFFF, 0.6);
 directionalLight.position.set(0, 1, 0);
-
-hemiLight = new THREE.HemisphereLight( 0xffffff, 0xffffff, 0.6 );
+ 
+hemiLight = new THREE.HemisphereLight( 0xffffff, 0xffffff, 0.4 );
 hemiLight.color.setHSL( 0.6, 0.75, 1 );
 hemiLight.groundColor.setHSL( 0.095, 0.5, 1 );
 
 
-scene.add(camera);
+
 scene.add(hemiLight);
 scene.add(new THREE.AmbientLight( 0x00010 ) );
 scene.add(directionalLight);
-camera.position.z = 300;
+
+
 
 renderer.setSize(WIDTH, HEIGHT);
 $container.append(renderer.domElement);
@@ -66,9 +78,12 @@ window.requestAnimationFrame = requestAnimationFrame;
 
 //This function calls itself when browser is ready to animate
 function renderScene(){
+		
+	var timer = Date.now() * 0.0006;
 
-	platform.rotation.y = mouseX * 0.005;
-    platform.rotation.x = mouseY * 0.005;
+	camera.position.x = Math.cos( timer ) * 200;
+	camera.position.z = Math.sin( timer ) * 200;
+	camera.lookAt( scene.position );
 
 	renderer.render(scene, camera);
 	requestAnimationFrame(renderScene);

@@ -40,3 +40,14 @@ h1
 	text-align: center;
 	margin: 0em;
 }
+
+
+#banner{
+	width: 64%;
+	height: auto;
+}
+
+#title
+{
+	text-align: center;
+}

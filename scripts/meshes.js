@@ -1,5 +1,5 @@
 //images are oldest to newest
-function baseChunk(unit, color, image, genre){
+function baseChunk(z, unit, color, image, genre){
 
 	var ALBUM_COUNT = 4;
 	var depth = unit;
@@ -23,7 +23,9 @@ function baseChunk(unit, color, image, genre){
 
 	var geometry = new THREE.CubeGeometry(width, height, depth, ALBUM_COUNT, 1, 1);
 	var mainMaterial = new THREE.MeshFaceMaterial(materials);
-	mainMaterial.wrapAround = true;
+	//mainMaterial.wrapAround = true;
 	var mesh = new THREE.Mesh(geometry, mainMaterial);
+	console.log(z);
+	mesh.position.set(0, 0, z);
 	return mesh;
 }
