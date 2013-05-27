@@ -4,7 +4,7 @@ var $container = $('#container');
 var cw = $container.width();
 //Set container height to width
 //16:9 aspect ratio
-$container.css({'height': (cw * .5625) +'px'});
+$container.css({'height': (cw * .55) +'px'});
 
 var WIDTH = $container.width();
 var HEIGHT = $container.height();
@@ -21,7 +21,7 @@ var FAR = 1000;
 
 //Change this to support Safari
 var renderer = new THREE.WebGLRenderer();
-
+var scene = new THREE.Scene();
 var camera = new THREE.OrthographicCamera ( 
 	WIDTH/ -2, 
 	WIDTH/2, 
@@ -32,19 +32,20 @@ var camera = new THREE.OrthographicCamera (
 camera.position.set(0,0,500);
 camera.lookAt(scene.position);
 
-var scene = new THREE.Scene();
+
 scene.add(camera);
 
 /* ------------Set up geometry*-----------------------*/
 var unit = 80;
 var rows = 4;
 var segments = [];
-var images = ["img/pop.jpg", "img/hiphop.jpg", "img/rock.jpg", "img/country.jpg"];
-var colors = [0xFFF826, 0xBAF325, 0xCD1F94, 0x7A26BA];
+var covers = ["img/pop.jpg", "img/hiphop.jpg", "img/rock.jpg", "img/country.jpg"];
+var genres = ["img/genres/p.png", "img/genres/h.png", "img/genres/r.png", "img/genres/c.png", ]
+var colors = [0xFFF826, 0xBAF325, 0xCD1F94, 0xA359DC];
 
 for(var i = 0; i < rows; i++){
 	var z = 0 - i * unit + unit/2;
-	segments[i] = new baseChunk(z, unit, colors[i], images[i], "Hip Hop");
+	segments[i] = new baseChunk(z, unit, colors[i], covers[i], genres[i]);
 	scene.add(segments[i]);
 }
 
@@ -52,17 +53,13 @@ for(var i = 0; i < rows; i++){
 var directionalLight = new THREE.DirectionalLight(0xFFFFFF, 0.6);
 directionalLight.position.set(0, 1, 0);
  
-hemiLight = new THREE.HemisphereLight( 0xffffff, 0xffffff, 0.4 );
+hemiLight = new THREE.HemisphereLight( 0xffffff, 0xffffff, 0.5 );
 hemiLight.color.setHSL( 0.6, 0.75, 1 );
 hemiLight.groundColor.setHSL( 0.095, 0.5, 1 );
-
-
 
 scene.add(hemiLight);
 scene.add(new THREE.AmbientLight( 0x00010 ) );
 scene.add(directionalLight);
-
-
 
 renderer.setSize(WIDTH, HEIGHT);
 $container.append(renderer.domElement);
@@ -78,7 +75,6 @@ window.requestAnimationFrame = requestAnimationFrame;
 
 //This function calls itself when browser is ready to animate
 function renderScene(){
-		
 	var timer = Date.now() * 0.0006;
 
 	camera.position.x = Math.cos( timer ) * 200;
@@ -115,9 +111,8 @@ document.addEventListener('mousemove', function(event){
 }, false);
 
 
-
-
 /*
 //http://konrad.strack.pl/blog/image-concatenation-with-imagemagick#.UaMB80BwqrQ
 http://www.elated.com/articles/rotatable-3d-product-boxshot-threejs/
+http://www.flickr.com/groups/itunesgenres/pool/
 */

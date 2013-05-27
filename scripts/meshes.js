@@ -1,5 +1,5 @@
 //images are oldest to newest
-function baseChunk(z, unit, color, image, genre){
+function baseChunk(z, unit, color, covers, genre){
 
 	var ALBUM_COUNT = 4;
 	var depth = unit;
@@ -8,13 +8,18 @@ function baseChunk(z, unit, color, image, genre){
 	var coverMaterials = [];
 
 
-	//left, right, top, bottom, front, and back
 	var baseColor = new THREE.MeshLambertMaterial({color: color});
-	var coverMaterial = new THREE.MeshLambertMaterial({map: THREE.ImageUtils.loadTexture(image)});
+	var genreFace = new THREE.MeshLambertMaterial(
+		{
+			//transparent: true,
+			map: THREE.ImageUtils.loadTexture(genre)
+		});
+	var coverMaterial = new THREE.MeshLambertMaterial({map: THREE.ImageUtils.loadTexture(covers)});
 
+	//left, right, top, bottom, front, and back
 	var materials = [
-		baseColor,
-		baseColor,
+		genreFace,
+		genreFace,
 		baseColor,
 		baseColor,
 		coverMaterial,
