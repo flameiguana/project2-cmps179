@@ -251,7 +251,7 @@ function drawVisualization(labelA, labelB, dataofA, dataofB, conditionNamesA, co
 	
 	var opts = 
 	{
-	colors: ["#2F69BF", "#808080"]
+		colors: ["#2F69BF", "#808080"]
 	};
 	/*
 	paper.text(chartA.bars[0].x + width/4, y + height, labelA);

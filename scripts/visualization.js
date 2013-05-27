@@ -1,7 +1,14 @@
-console.log("Loaded");
+console.log("Loaded"); 
 
-var WIDTH = 400;
-var HEIGHT = 400;
+var $container = $('#container');
+
+var cw = $container.width();
+//Set container height to width
+$container.css({'height':cw+'px'});
+
+var WIDTH = $container.width();
+var HEIGHT = $container.height();
+
 
 var VIEW_ANGLE = 45;
 var ASPECT = WIDTH/HEIGHT;
@@ -21,7 +28,7 @@ var radius = 50, segments = 16, rings = 16;
 var sphereGeometry = new THREE.SphereGeometry(radius, segments, rings);
 var sphereMaterial = new THREE.MeshLambertMaterial(
 	{
-		color: 0xCC0000 
+		color: 0x00CCDD
 	});
 
 var sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
@@ -38,9 +45,8 @@ scene.add(pointLight);
 camera.position.z = 300;
 
 renderer.setSize(WIDTH, HEIGHT);
+$container.append(renderer.domElement);
 
-var $canvas = $('#canvas');
-$canvas.append(renderer.domElement);
 
 //---------------Render Stuff-----------------
 //Get the browser specific animation frame var.
