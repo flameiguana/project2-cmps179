@@ -29,10 +29,10 @@ var camera = new THREE.OrthographicCamera (
 	HEIGHT / -2,
 	NEAR,
 	FAR);
+var scene = new THREE.Scene();
 camera.position.set(0,0,500);
 camera.lookAt(scene.position);
 
-var scene = new THREE.Scene();
 scene.add(camera);
 
 /* ------------Set up geometry*-----------------------*/
