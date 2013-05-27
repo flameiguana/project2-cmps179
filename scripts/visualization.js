@@ -31,8 +31,6 @@ var camera = new THREE.OrthographicCamera (
 	FAR);
 camera.position.set(0,0,500);
 camera.lookAt(scene.position);
-
-
 scene.add(camera);
 
 /* ------------Set up geometry*-----------------------*/
