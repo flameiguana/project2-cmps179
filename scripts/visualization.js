@@ -4,7 +4,8 @@ var $container = $('#container');
 
 var cw = $container.width();
 //Set container height to width
-$container.css({'height':cw+'px'});
+//16:9 aspect ratio
+$container.css({'height': (cw * .5625) +'px'});
 
 var WIDTH = $container.width();
 var HEIGHT = $container.height();

@@ -12,10 +12,10 @@ body
 
 #container
 {
-	background-color: #E8E8E8;
-	width: 50%;
-	margin: 3em auto;
-	/*padding-bottom: 3em;*/
+	background-color: #FFFFFF;
+	margin: 4px 0;
+	border-radius: 8px;
+}
 }
 
 /*Canvas size should always fill up whatever it is contained in*/
@@ -26,15 +26,11 @@ canvas
 }
 
 /*------------Text Stuff--------------*/
-
-
 .textual
 {
-	/*top margin doesnt work*/
 	background-color: #FFFFFF;
 	margin: 4px 0;
 	padding: 2em;
-
 	border-radius: 8px;
 }
 
