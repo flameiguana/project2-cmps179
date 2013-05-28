@@ -98,7 +98,7 @@ var canRotateCamera = true;
 var sideView = false;
 var animationTime = 600;
 var easingFunction = TWEEN.Easing.Cubic.Out;
-function rotateCamera(){
+function rotateCamera(switchAfterwards){
 
 	canRotateCamera = false;
 	if(camera.position.x > 490)
@@ -154,6 +154,7 @@ function rotateCamera(){
 			})
 			.onComplete(function(){
 				canRotateCamera = true; ///re enable key
+
 			});
 		moveToSide.start();
 	}
@@ -282,6 +283,8 @@ function onKeyDown ( event ) {
 		case 83: /*s*/
 			if(canCycle && !sideView)
 				switchCharts();
+			else
+				rotateCamera(true);
 			break;
 	}
 }

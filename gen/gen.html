@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<link rel="stylesheet" type="text/css" href="styles/main.css">
+
+<style>
+    .label{
+        float: left;
+    }
+    .info{
+        float: left;
+        font-weight: bold;
+        padding-left: 10px;
+    }
+    .clear{
+        float: none;
+    }
+</style>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script id="ebayScript" type="text/javascript" src="scripts/ebay-gen-stats.js"></script>
+    <script id="credentialsScript" type="text/javascript" src="scripts/ebay-credentials.js"></script>
+    <script id="categoryListScript" type="text/javascript" src="scripts/ebay-us-category-list.js"></script>
+    <script id="dataProcessing" type="text/javascript" src="scripts/ebay-data-processing.js"></script>
+    <script id="json" type="text/javascript" src="scripts/json2.js"></script>
+    <script>
+        function handleInput() {
+            var input = $("#myform").serializeArray();
+            if (input[0].value != "" ) {
+                _keywords = input[0].value;
+                _keywords = _keywords.replace(" ", "+");
+                makeEbayRequest(parseFloat(_firstCategory), 1, "findCompletedItems");
+            }
+            else
+                alert("invalid input");
+        }
+    </script>
+</body>
+<title>Stat Generatorl</title>
+</head>
+<body>
+    <form id="myform">
+        Keywords: <input type="text" name="label">
+    </form>
+    <input type="button" value="Submit" onclick="handleInput()"><br/>
+    <div class="label">Current Page</div>
+    <div class="info" id="currentPage"></div><div class="clear"></div><br/><br/>
+    <div class="label">Max Pages</div>
+    <div class="info" id="maxPages"></div>   <div class="clear"></div><br/><br/>
+    <div class="label">Total Pages</div>
+    <div class="info" id="totalPages"></div><div class="clear"></div><br/><br/>
+    <script>
+            _firstCategory = 11233;
+            _keywords = "Michael Jackson Thriller";
+            _keywords = _keywords.replace(" ", "+");
+            _maxPages = 100;
+            //makeEbayRequest(_firstCategory, 1, "findCompletedItems");
+    </script>
+</html>

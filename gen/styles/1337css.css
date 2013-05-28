@@ -1,0 +1,120 @@
+::-webkit-scrollbar { 
+    display: none; 
+}
+h1{
+    color: #111;
+    font-family: 'Bad Script', cursive;
+    font-size: 50px;
+}
+body{
+    /*scheme id: http://colorschemedesigner.com/#4W41Tw0w0w0w0*/
+    overflow-x:hidden;
+    background: url('images/bg.jpg');
+    background-size: cover;
+    color: #aaa;
+    margin-left: 200px;
+    margin-right: 200px;
+    font-family: 'Bad Script', cursive;
+    
+
+}
+a{
+    color: #bbb;
+}
+.sidebar{
+    background: url('images/sidebar.png');
+    background-size: cover;
+    color: #8390AA;
+    position:  fixed;
+    top: 0px;
+    height: 100%;
+    width: 180px;
+    opacity: 100;
+    z-index: 100;
+}
+.sidebar-alert{
+    position:  fixed;
+    top: 0px;
+    height: 100%;
+    width: 100px;
+    z-index: 101;
+}
+.sidebar div{
+    font-family: 'Bad Script', cursive;
+    font-size: 50px;
+    padding: 10px;
+}
+.sidebar div:hover{
+    color: black;
+    cursor: pointer;
+}
+#sidebar-left{
+    left: -250px;
+    background: url("images/sidebar.png") 99.999% center no-repeat;
+    width: 195px;
+}
+#sidebar-alert-left{
+    left: 0px;
+}
+#sidebar-right{
+    right: -250px;
+    text-align: right;
+}
+#sidebar-alert-right{
+    right: 0px;
+}
+#container
+{
+    height: 100%;
+    width: 100%;
+    margin: 0px 200px 0px 200px;
+	left: 0px;
+	top: 0px;
+	z-index: 0;
+	margin: 0 auto;
+}
+tspan{
+    	font-size: 15px;
+	font-family: 'Combo', cursive;
+}
+#exampleImage{
+    float:left;
+    width:15%;
+    margin: 10px auto;
+    padding: 10px;
+}
+#vis
+{
+	margin: 10px auto;
+	width: 85%;
+	height: 600px;
+	background: rgba(255, 255, 255, 0.7);
+	border-radius: 10px;
+}
+#footer{
+    color: #222;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+#switcher{
+    color: #333;
+    float:left;
+    padding: 20px;
+    font-size: 40px;
+    left: 250px;
+}
+#switcher:hover{
+    cursor: pointer;
+    color: #000;
+}
+.option{
+    color: #FFF;
+    font-family: arial;
+}
+#moreCrap{
+    color: black;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: 'Combo', cursive;
+}
