@@ -34,3 +34,6 @@ function baseChunk(z, unit, color, covers, genre){
 	mesh.position.set(0, 0, z);
 	return mesh;
 }
+
+
+

@@ -34,6 +34,8 @@ camera.lookAt(scene.position);
 scene.add(camera);
 
 /* ------------Set up geometry*-----------------------*/
+
+//TODO Make all of this one object, witth cycleBlock internal function
 var unit = 80;
 var rows = 4;
 var segments = [];
@@ -71,6 +73,90 @@ var requestAnimationFrame = window.requestAnimationFrame ||  window.webkitReques
 //set it to a variable with same name across browsers
 window.requestAnimationFrame = requestAnimationFrame;
 
+var cycle = false;
+var counter = 0;
+var canCycle = true;
+function cycleBlock(blocks){
+	//translate front one up, translate back, push all others forward, translate down
+	var current = counter;
+	var originalLocations = [];
+
+	//Store the initial locations.
+	for(var i = 0; i < rows; i++){
+		//copying by reference is bad
+		var position = {
+			x: segments[i].position.x,
+			y: segments[i].position.y,
+			z: segments[i].position.z
+		};
+
+		originalLocations[i] = position;
+	}
+
+	//Set up tweeen objects.
+	var moveUp = new TWEEN.Tween(
+		{
+			//TODO: also update its children. Object3d has children attribute
+			y: originalLocations[counter].y
+		})
+		.to({ y: originalLocations[counter].y + unit}, 400)
+		.easing(TWEEN.Easing.Linear.None)
+		.onUpdate(function(){
+			segments[current].position.y = this.y;
+		});
+
+	var moveForward = new TWEEN.Tween(
+		{
+			orig : originalLocations,
+			zShift : 0
+		})
+		.to({zShift: unit}, 400)
+		.easing(TWEEN.Easing.Linear.None)
+		.onUpdate(function(){
+			for(var i = 0; i < rows; i++){
+				if(i != current){
+					segments[i].position.z = this.orig[i].z + this.zShift;
+				}
+			}
+		});
+
+	var moveBack = new TWEEN.Tween(
+	{
+		z: originalLocations[counter].z
+	})
+	.to({ z : originalLocations[counter].z - unit*(rows - 1) }, 400*2)
+	.easing(TWEEN.Easing.Linear.None)
+	.onUpdate(function(){
+		segments[current].position.z = this.z;
+	});
+
+	var moveDown = new TWEEN.Tween(
+	{
+		y: 0,
+		originalY: segments[current].position.y + unit //recall that it will be moved up
+	})
+	.to({ y : unit}, 400)
+	.easing(TWEEN.Easing.Linear.None)
+	.onUpdate(function(){
+		segments[current].position.y = this.originalY - this.y;
+	})
+	.onComplete(function(){
+		canCycle = true; ///re enable key
+	});
+
+	//Chain all the animations together.
+	moveUp.chain(moveForward);
+	moveForward.chain(moveBack);
+	moveBack.chain(moveDown);
+
+	moveUp.start();
+
+	counter++;
+	if(counter === rows){
+		counter = 0;
+	}
+}
+
 //This function calls itself when browser is ready to animate
 function renderScene(){
 	var timer = Date.now() * 0.0006;
@@ -78,7 +164,11 @@ function renderScene(){
 	camera.position.x = Math.cos( timer ) * 200;
 	camera.position.z = Math.sin( timer ) * 200;
 	camera.lookAt( scene.position );
-
+	TWEEN.update();
+	if(cycle === true){
+		cycleBlock(segments);
+		cycle = false;
+	}
 	renderer.render(scene, camera);
 	requestAnimationFrame(renderScene);
 	//console.log("hi");
@@ -88,15 +178,19 @@ function renderScene(){
 requestAnimationFrame(renderScene);
 
 /*Handle various keyboard clicks*/
-
 document.addEventListener('keydown', onKeyDown, false);
 function onKeyDown ( event ) {
 
 	switch ( event.keyCode ) {
 		case 76: /*l*/
-		directionalLight.visible = !directionalLight.visible;
-		break;
-
+			directionalLight.visible = !directionalLight.visible;
+			break;
+		case 67: /*c*/
+			if(canCycle === true ){
+				cycle = true;
+				canCycle = false;
+			}
+			break;
 	}
 }
 
