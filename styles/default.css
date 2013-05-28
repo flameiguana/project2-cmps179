@@ -15,9 +15,18 @@ body
 	background-color: #FFFFFF;
 	margin: 4px 0;
 	border-radius: 8px;
-}
+	float: left;
+	width: 80%;
 }
 
+
+#usage
+{
+	padding: 0;
+	padding-left: 4px;
+	width: 19%;
+	float: right;
+}
 /*Canvas size should always fill up whatever it is contained in*/
 canvas
 {
@@ -34,7 +43,6 @@ canvas
 	border-radius: 8px;
 }
 
-
 h1
 {
 	text-align: center;
@@ -50,4 +58,10 @@ h1
 #title
 {
 	text-align: center;
+}
+
+#comments
+{
+	/*Places it below any floating elements.*/
+	clear: both;
 }

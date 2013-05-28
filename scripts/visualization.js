@@ -40,8 +40,6 @@ scene.add(camera);
 /* ------------Set up geometry*-----------------------*/
 
 //TODO Make all of this one object, witth cycleBlock internal function
-var unit = 120;
-
 var unit = HEIGHT * .3;
 var rows = 4;
 var segments = [];
@@ -68,16 +66,26 @@ segments[3].add(charts[3].chart);
 /*---------------End Andrew's Stuff------------*/
 
 /*-----------------Lighting--------------------*/
-var directionalLight = new THREE.DirectionalLight(0xFFFFFF, 0.6);
-directionalLight.position.set(0, 1, 0);
- 
+//Use three directional lights to make boxes not look flat.
+
+var frontLight = new THREE.DirectionalLight(0xFFFFFF, .8);
+frontLight.position.set(0, 1, 1);
+scene.add(frontLight);
+
+var rightLight = new THREE.DirectionalLight(0xFFFFFF, 0.6);
+rightLight.position.set(1, 0, 1);
+scene.add(rightLight);
+
+var leftLight = new THREE.DirectionalLight(0xFFFFFF, 0.6);
+leftLight.position.set(-1, 1, 0);
+scene.add(leftLight);
+
+/*Don't like this:
 hemiLight = new THREE.HemisphereLight( 0xffffff, 0xffffff, 0.5 );
 hemiLight.color.setHSL( 0.6, 0.75, 1 );
 hemiLight.groundColor.setHSL( 0.095, 0.5, 1 );
-
 scene.add(hemiLight);
-scene.add(new THREE.AmbientLight( 0x00010 ) );
-scene.add(directionalLight);
+*/
 
 renderer.setSize(WIDTH, HEIGHT);
 $container.append(renderer.domElement);
@@ -244,8 +252,8 @@ function cycleBlock(blocks){
 function renderScene(){
 	var timer = Date.now() * 0.0006;
 
-	//camera.position.x = Math.cos( timer ) * 200;
-	//camera.position.z = Math.sin( timer ) * 200;
+	camera.position.x = Math.cos( timer ) * 200;
+	camera.position.z = Math.sin( timer ) * 200;
 	camera.lookAt( scene.position );
 	TWEEN.update();
 	if(cycle === true){

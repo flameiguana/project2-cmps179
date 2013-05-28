@@ -49,3 +49,56 @@ Taylor Swift - Red
 No Vinyl:
 Carrie Underwood - Blown Away
 Jason Aldean Blown Away
+
+
+TODO: Overview Mode: press a key and now user is now in free move mode.
+go back to axis vew by pressing the same key again
+//Fix lighting.
+
+
+Introduction
+
+Although it is widely known that the compact disc format outsells vinyl records by a lot, 
+there is still an audience for this analog format. Nielsen reports that in 2012, sales of LP albums rose by 17.7% compared to 2011, whereas sales of CDs dropped by 13.5%. Although eBay may not be the first place people go to for music on physical media, we tried to coax something out of the data.
+
+We measured two things:
+Activity - Recent sales, current sales, and bid counts.
+
+Revenue - The amount of money obtained from selling music on eBay.
+
+Of course, activity would always be lower for vinyl than for CD.
+To make the comparisons more interesting, we also looked at two other things:
+
+1. Release date of an album (80s, 90s, 00s, 2012)
+2. Genre (Pop, Hip Hop, Rock, Country)
+
+The albums were strictly chosen based on sales statistics. You can read more about the selection process in the section below the visualization.
+
+//Put this in a div beside the visualization
+Key Commands:
+q: alternate between side and front view
+c: cycle genres. When in front view, albums among a particular genre can be compared.
+f: toggle free camera mode to look around the scene.
+
+
+http://www.businesswire.com/news/home/20130104005149/en/Nielsen-Company-Billboard%E2%80%99s-2012-Music-Industry-Report
+
+Why aren't N'Sync or The Backstreet Boys on here?
+As with some other high-selling albums, no vinyl version was relased. We went through the highest selling albums until a vinyl copy was found on eBay.
+
+Country albums in the last decade were the worst offenders. No platinum or higher sellng country album was found on vinyl.
+Here is a partial list of ommitted country albums.
+
+Shania Twain - Up
+Carrie Underwoods - Some Hearts
+Dixie Chicks - Home
+Wilson Gretchen - Here for the Party 
+Kenney Chesney  - When the Sun Goes Down
+Keith Urban  - Be Here
+Zac Brown Band - The Foundation
+Toby Keith - Shock'n Y'all
+Big & Rich - Horse of a Different Color
+Tim McGraw  - Live Like You Were Dying
+Brad Paisely -  Time Well Wasted
+Josh Turner  - Your Man
+Kenny Chesney -  No Shirt, No Shoes, No Problems
