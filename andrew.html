@@ -76,9 +76,11 @@
 
 				//makeCube(scene, material, 0,0,0, 50, 50, 50);
 				//makeCube(scene, material, 50,0,150, 50, 50, 150);
-				var chart = makeSquareChart(400, 300, 500, 0, 0, 0);
+				var chart1 = makePillar(400, 500, 0, 0, 0);
+				var chart2 = makeChartTrio([100, 200, 300, 400, 500, 600], 500, 0, 0, 0);
 				parent = new THREE.Object3D();
-				parent.add(chart);
+				//parent.add(chart1);
+				parent.add(chart2);
 				//parent.add(makeText("hello", 50, 0, 0, 0));
 				scene.add(parent);
 				/*for ( var i = 0; i < 100; i ++ ) {
@@ -158,7 +160,7 @@
 				camera.position.x = Math.cos( timer ) * 50;
 				camera.position.z = Math.sin( timer ) * 50;
 				camera.position.y = 0;
-				//camera.lookAt( scene.position );
+				camera.lookAt( scene.position );
 
 				renderer.render( scene, camera );
 
@@ -169,50 +171,62 @@
 		* its base at x,y,z. Scene is just the scene were using, data1 and
 		* data2 are just numbers, and normalizedTo is the value that we are
 		* normalizing the data to
+		* NOTE: If we wanted to have the text aligned to the bottom of the charts
+		* 		all we would have to do is flip the signs on the text1a, 1b, etc. 
+		*		signs
 		*/
-		function makeSquareChart(data1, data2, normalizedTo, x, y, z){
+		function makeChartTrio(data, normalizedTo, x, y, z){
 			var TOTAL_SIZE = 50;
 			var SQUARE_CHART_SIZE = TOTAL_SIZE/2;//the size of each pillar
 			var MAX_HEIGHT = 200;
-			var material1 = new THREE.MeshLambertMaterial( { color: 0xffffff, shading: THREE.FlatShading, overdraw: true } );
-			var material2 = new THREE.MeshLambertMaterial( { color: 0x888888, shading: THREE.FlatShading, overdraw: true } );
-			var height1 = data1/normalizedTo*MAX_HEIGHT;
-			var height2 = data2/normalizedTo*MAX_HEIGHT;
+			var TOTAL_SIZE = 50;
+			var SQUARE_CHART_SIZE = TOTAL_SIZE/2;//the size of each pillar
+			var MAX_HEIGHT = 200;
 
-			var cube1 = makeCube(material1, SQUARE_CHART_SIZE/2, height1/2, SQUARE_CHART_SIZE/2, SQUARE_CHART_SIZE, height1, SQUARE_CHART_SIZE);
-			var cube2 = makeCube(material2, -SQUARE_CHART_SIZE/2, height2/2, -SQUARE_CHART_SIZE/2, SQUARE_CHART_SIZE, height2, SQUARE_CHART_SIZE);
+			var pillarsFront = [];
+			var pillarsBack = [];
 
-			var text1a = makeText(data1, SQUARE_CHART_SIZE*.8, 0, 0, 0);
-			text1a.rotation.z = Math.PI/2;
-			text1a.position.x = cube1.position.x/1.2; text1a.position.y = cube1.position.y; text1a.position.z = cube1.position.z;
-			var text1b = makeText(data1, SQUARE_CHART_SIZE*.8, 0, 0, 0);
-			text1b.rotation.z = Math.PI/2; text1b.rotation.y = Math.PI/2;
-			text1b.position.x = cube1.position.x; text1b.position.y = cube1.position.y; text1b.position.z = -cube1.position.z;
-			//text1b.rotation.y = -Math.PI/2
+			pillarsFront[0] = makePillar(data[0], normalizedTo, TOTAL_SIZE*.25 - SQUARE_CHART_SIZE*2, 0, TOTAL_SIZE*.25);
+			pillarsFront[1] = makePillar(data[1], normalizedTo, TOTAL_SIZE*.25, 0, TOTAL_SIZE*.25);
+			pillarsFront[2] = makePillar(data[2], normalizedTo, TOTAL_SIZE*.25 + SQUARE_CHART_SIZE*2, 0, TOTAL_SIZE*.25);
 
-			var text2a = makeText(data2, SQUARE_CHART_SIZE*.8, 0, 0, 0);
-			text2a.rotation.z = Math.PI/2;
-			text2a.position.x = cube2.position.x+SQUARE_CHART_SIZE/1.2; text2a.position.y = cube2.position.y; text2a.position.z = cube2.position.z+SQUARE_CHART_SIZE;
-
-			var text2b = makeText(data2, SQUARE_CHART_SIZE*.8, 0, 0, 0);
-			text2b.rotation.z = Math.PI/2; text2b.rotation.y = Math.PI/2;
-			text2b.position.x = -cube2.position.x; text2b.position.y = cube2.position.y; text2b.position.z = cube2.position.z;
-
-			cube1.add(text1a);
-			cube1.add(text1b);
-			cube2.add(text2a);
-			cube2.add(text2b);
+			pillarsBack[0] = makePillar(data[3], normalizedTo, -TOTAL_SIZE*.25 - SQUARE_CHART_SIZE*2, 0, -TOTAL_SIZE*.25);
+			pillarsBack[1] = makePillar(data[4], normalizedTo, -TOTAL_SIZE*.25, 0, -TOTAL_SIZE*.25);
+			pillarsBack[2] = makePillar(data[5], normalizedTo, -TOTAL_SIZE*.25 + SQUARE_CHART_SIZE*2, 0, -TOTAL_SIZE*.25);
 
 			var chart = new THREE.Object3D();
+
+			for(var i = 0; i < pillarsFront.length; i++){
+				chart.add(pillarsFront[i]);
+				chart.add(pillarsBack[i]);
+			}
 
 			chart.position.x = x;
 			chart.position.y = y;
 			chart.position.z = z;
 
-			chart.add(cube1);
-			chart.add(cube2);
-
 			return chart;
+		}
+		function makePillar(data, normalizedTo, x, y, z){
+			var TOTAL_SIZE = 50;
+			var SQUARE_CHART_SIZE = TOTAL_SIZE/2;//the size of each pillar
+			var MAX_HEIGHT = 200;
+			var material1 = new THREE.MeshLambertMaterial( { color: 0xffffff, shading: THREE.FlatShading, overdraw: true } );
+			var height1 = data/normalizedTo*MAX_HEIGHT;
+
+			var pillar = makeCube(material1, x, y+height1/2, z, SQUARE_CHART_SIZE, height1, SQUARE_CHART_SIZE);
+
+			var text1a = makeText(data, SQUARE_CHART_SIZE*.8, 0, 0, 0);
+			text1a.rotation.z = Math.PI/2;
+			text1a.position.x = SQUARE_CHART_SIZE/2.4; text1a.position.y = height1/2; text1a.position.z = SQUARE_CHART_SIZE/2+.0000001;
+			var text1b = makeText(data, SQUARE_CHART_SIZE*.8, 0, 0, 0);
+			text1b.rotation.z = Math.PI/2; text1b.rotation.y = Math.PI/2;
+			text1b.position.x = SQUARE_CHART_SIZE/2+.0000001; text1b.position.y = height1/2; text1b.position.z = -SQUARE_CHART_SIZE/2.4;
+
+			pillar.add(text1a);
+			pillar.add(text1b);
+
+			return pillar;
 		}
 		function makeCube(material, x, y, z, w, h, d){
 			var geometry = new THREE.CubeGeometry( w, h, d );
@@ -238,7 +252,7 @@
 			var text3d = new THREE.TextGeometry( theText, {
 
 					size: size,
-					height: .00000000000000000001,
+					height: 1.00000000000000000001,
 					curveSegments: 6,
 					font: "helvetiker"
 

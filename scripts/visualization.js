@@ -50,10 +50,22 @@ var genres = ["img/genres/p.png", "img/genres/h.png", "img/genres/r.png", "img/g
 var colors = [0xFFF826, 0xBAF325, 0xCD1F94, 0xA359DC];
 
 for(var i = 0; i < rows; i++){
-	var z = 0 - i * unit + unit/2;
+	var z = (1 - i) * unit + unit/2;
 	segments[i] = new baseChunk(z, unit, colors[i], covers[i], genres[i]);
 	scene.add(segments[i]);
 }
+
+/*----------------Andrew's Stuff---------------*/
+var charts = [];
+charts[0] = new chartQuad([100, 200, 300, 400, 500, 600, 700, 800], 1000, unit, 0, unit/2, 0);
+charts[1] = new chartQuad([100, 200, 300, 400, 500, 600, 700, 800], 1000, unit, 0, unit/2, 0);
+charts[2] = new chartQuad([100, 200, 300, 400, 500, 600, 700, 800], 1000, unit, 0, unit/2, 0);
+charts[3] = new chartQuad([100, 200, 300, 400, 500, 600, 700, 800], 1000, unit, 0, unit/2, 0);
+segments[0].add(charts[0].chart);
+segments[1].add(charts[1].chart);
+segments[2].add(charts[2].chart);
+segments[3].add(charts[3].chart);
+/*---------------End Andrew's Stuff------------*/
 
 /*-----------------Lighting--------------------*/
 var directionalLight = new THREE.DirectionalLight(0xFFFFFF, 0.6);
@@ -82,6 +94,71 @@ window.requestAnimationFrame = requestAnimationFrame;
 var cycle = false;
 var counter = 0;
 var canCycle = true;
+var canRotateCamera = true;
+var sideView = false;
+var animationTime = 600;
+var easingFunction = TWEEN.Easing.Cubic.Out;
+function rotateCamera(){
+
+	canRotateCamera = false;
+	if(camera.position.x > 490)
+		sideView = true;
+	else
+		sideView = false;
+	if(sideView){
+		for(var i = 0; i < charts.length; i++)
+			charts[i].unstack(animationTime, easingFunction);
+		var moveToFront = new TWEEN.Tween(
+			{
+				//TODO: also update its children. Object3d has children attribute
+				x: camera.position.x,
+				y: camera.position.y,
+				z: camera.position.z
+			})
+			.to({ 
+				x: 0,
+				y: 0,
+				z: 500,
+			}, animationTime)
+			.easing(easingFunction)
+			.onUpdate(function(){
+				camera.position.x = this.x;
+				camera.position.y = this.y;
+				camera.position.z = this.z;
+			})
+			.onComplete(function(){
+				canRotateCamera = true; ///re enable key
+			});
+		moveToFront.start();
+	}
+	else{
+		for(var i = 0; i < charts.length; i++)
+			charts[i].stack(animationTime, easingFunction);
+		var moveToSide = new TWEEN.Tween(
+			{
+				//TODO: also update its children. Object3d has children attribute
+				x: camera.position.x,
+				y: camera.position.y,
+				z: camera.position.z
+			})
+			.to({ 
+				x: 500,
+				y: 0,
+				z: 0,
+			}, animationTime)
+			.easing(easingFunction)
+			.onUpdate(function(){
+				camera.position.x = this.x;
+				camera.position.y = this.y;
+				camera.position.z = this.z;
+			})
+			.onComplete(function(){
+				canRotateCamera = true; ///re enable key
+			});
+		moveToSide.start();
+	}
+}
+
 function cycleBlock(blocks){
 	//translate front one up, translate back, push all others forward, translate down
 	var current = counter;
@@ -167,8 +244,8 @@ function cycleBlock(blocks){
 function renderScene(){
 	var timer = Date.now() * 0.0006;
 
-	camera.position.x = Math.cos( timer ) * 200;
-	camera.position.z = Math.sin( timer ) * 200;
+	//camera.position.x = Math.cos( timer ) * 200;
+	//camera.position.z = Math.sin( timer ) * 200;
 	camera.lookAt( scene.position );
 	TWEEN.update();
 	if(cycle === true){
@@ -187,7 +264,6 @@ requestAnimationFrame(renderScene);
 document.addEventListener('keydown', onKeyDown, false);
 
 function onKeyDown ( event ) {
-
 	switch ( event.keyCode ) {
 		case 76: /*l*/
 			directionalLight.visible = !directionalLight.visible;
@@ -197,6 +273,10 @@ function onKeyDown ( event ) {
 				cycle = true;
 				canCycle = false;
 			}
+			break;
+		case 81: /*q*/
+			if(canRotateCamera)
+				rotateCamera();
 			break;
 	}
 }
