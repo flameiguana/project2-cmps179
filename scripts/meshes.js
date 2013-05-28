@@ -31,7 +31,7 @@ function baseChunk(z, unit, color, covers, genre){
 	//mainMaterial.wrapAround = true;
 	var mesh = new THREE.Mesh(geometry, mainMaterial);
 	console.log(z);
-	mesh.position.set(0, 0, z);
+	mesh.position.set(0, -unit,z);
 	return mesh;
 }
 

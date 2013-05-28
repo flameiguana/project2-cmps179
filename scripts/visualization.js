@@ -21,7 +21,11 @@ var FAR = 1000;
 
 //Change this to support Safari
 var renderer = new THREE.WebGLRenderer();
+
+
 var scene = new THREE.Scene();
+
+///Make this window size independent
 var camera = new THREE.OrthographicCamera ( 
 	WIDTH/ -2, 
 	WIDTH/2, 
@@ -36,7 +40,9 @@ scene.add(camera);
 /* ------------Set up geometry*-----------------------*/
 
 //TODO Make all of this one object, witth cycleBlock internal function
-var unit = 80;
+var unit = 120;
+
+var unit = HEIGHT * .3;
 var rows = 4;
 var segments = [];
 var covers = ["img/pop.jpg", "img/hiphop.jpg", "img/rock.jpg", "img/country.jpg"];
@@ -179,6 +185,7 @@ requestAnimationFrame(renderScene);
 
 /*Handle various keyboard clicks*/
 document.addEventListener('keydown', onKeyDown, false);
+
 function onKeyDown ( event ) {
 
 	switch ( event.keyCode ) {
