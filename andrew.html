@@ -19,6 +19,8 @@
 
 		<script src="scripts/stats.min.js"></script>
 
+		<script src="fonts/helvetiker_regular.typeface.js"></script>
+
 		<script>
 
 			var container, stats;
@@ -41,9 +43,9 @@
 				container.appendChild( info );
 
 				camera = new THREE.OrthographicCamera( window.innerWidth / - 2, window.innerWidth / 2, window.innerHeight / 2, window.innerHeight / - 2, - 500, 1000 );
-				camera.position.x = 200;
-				camera.position.y = 100;
-				camera.position.z = 200;
+				camera.position.x = 50;
+				camera.position.y = 50;
+				camera.position.z = 50;
 
 				scene = new THREE.Scene();
 
@@ -74,8 +76,11 @@
 
 				//makeCube(scene, material, 0,0,0, 50, 50, 50);
 				//makeCube(scene, material, 50,0,150, 50, 50, 150);
-				makeSquareChart(scene, 40, 40, 50, 0, 0, 0);
-
+				var chart = makeSquareChart(400, 300, 500, 0, 0, 0);
+				parent = new THREE.Object3D();
+				parent.add(chart);
+				//parent.add(makeText("hello", 50, 0, 0, 0));
+				scene.add(parent);
 				/*for ( var i = 0; i < 100; i ++ ) {
 					var cube = new THREE.Mesh( geometry, material );
 					cube.scale.y = Math.floor( Math.random() * 2 + 1 );
@@ -89,7 +94,7 @@
 
 				// Lights
 
-				var ambientLight = new THREE.AmbientLight( Math.random() * 0x10 );
+				var ambientLight = new THREE.AmbientLight( 1);
 				scene.add( ambientLight );
 
 				var directionalLight = new THREE.DirectionalLight( Math.random() * 0xffffff );
@@ -148,11 +153,12 @@
 
 			function render() {
 
-				var timer = Date.now() * 0.0001;
+				var timer = Date.now() * 0.0005;
 
-				camera.position.x = Math.cos( timer ) * 200;
-				camera.position.z = Math.sin( timer ) * 200;
-				camera.lookAt( scene.position );
+				camera.position.x = Math.cos( timer ) * 50;
+				camera.position.z = Math.sin( timer ) * 50;
+				camera.position.y = 0;
+				//camera.lookAt( scene.position );
 
 				renderer.render( scene, camera );
 
@@ -164,17 +170,51 @@
 		* data2 are just numbers, and normalizedTo is the value that we are
 		* normalizing the data to
 		*/
-		function makeSquareChart(scene, data1, data2, normalizedTo, x, y, z){
-			var SQUARE_CHART_SIZE = 100;
+		function makeSquareChart(data1, data2, normalizedTo, x, y, z){
+			var TOTAL_SIZE = 50;
+			var SQUARE_CHART_SIZE = TOTAL_SIZE/2;//the size of each pillar
 			var MAX_HEIGHT = 200;
 			var material1 = new THREE.MeshLambertMaterial( { color: 0xffffff, shading: THREE.FlatShading, overdraw: true } );
 			var material2 = new THREE.MeshLambertMaterial( { color: 0x888888, shading: THREE.FlatShading, overdraw: true } );
 			var height1 = data1/normalizedTo*MAX_HEIGHT;
 			var height2 = data2/normalizedTo*MAX_HEIGHT;
-			makeCube(scene, material1, x+SQUARE_CHART_SIZE/2, y+height1/2, z+SQUARE_CHART_SIZE/2, SQUARE_CHART_SIZE, height1, SQUARE_CHART_SIZE);
-			makeCube(scene, material2, x-SQUARE_CHART_SIZE/2, y+height2/2, z-SQUARE_CHART_SIZE/2, SQUARE_CHART_SIZE, height2, SQUARE_CHART_SIZE);
+
+			var cube1 = makeCube(material1, SQUARE_CHART_SIZE/2, height1/2, SQUARE_CHART_SIZE/2, SQUARE_CHART_SIZE, height1, SQUARE_CHART_SIZE);
+			var cube2 = makeCube(material2, -SQUARE_CHART_SIZE/2, height2/2, -SQUARE_CHART_SIZE/2, SQUARE_CHART_SIZE, height2, SQUARE_CHART_SIZE);
+
+			var text1a = makeText(data1, SQUARE_CHART_SIZE*.8, 0, 0, 0);
+			text1a.rotation.z = Math.PI/2;
+			text1a.position.x = cube1.position.x/1.2; text1a.position.y = cube1.position.y; text1a.position.z = cube1.position.z;
+			var text1b = makeText(data1, SQUARE_CHART_SIZE*.8, 0, 0, 0);
+			text1b.rotation.z = Math.PI/2; text1b.rotation.y = Math.PI/2;
+			text1b.position.x = cube1.position.x; text1b.position.y = cube1.position.y; text1b.position.z = -cube1.position.z;
+			//text1b.rotation.y = -Math.PI/2
+
+			var text2a = makeText(data2, SQUARE_CHART_SIZE*.8, 0, 0, 0);
+			text2a.rotation.z = Math.PI/2;
+			text2a.position.x = cube2.position.x+SQUARE_CHART_SIZE/1.2; text2a.position.y = cube2.position.y; text2a.position.z = cube2.position.z+SQUARE_CHART_SIZE;
+
+			var text2b = makeText(data2, SQUARE_CHART_SIZE*.8, 0, 0, 0);
+			text2b.rotation.z = Math.PI/2; text2b.rotation.y = Math.PI/2;
+			text2b.position.x = -cube2.position.x; text2b.position.y = cube2.position.y; text2b.position.z = cube2.position.z;
+
+			cube1.add(text1a);
+			cube1.add(text1b);
+			cube2.add(text2a);
+			cube2.add(text2b);
+
+			var chart = new THREE.Object3D();
+
+			chart.position.x = x;
+			chart.position.y = y;
+			chart.position.z = z;
+
+			chart.add(cube1);
+			chart.add(cube2);
+
+			return chart;
 		}
-		function makeCube(scene, material, x, y, z, w, h, d){
+		function makeCube(material, x, y, z, w, h, d){
 			var geometry = new THREE.CubeGeometry( w, h, d );
 			var cube = new THREE.Mesh( geometry, material );
 
@@ -182,7 +222,41 @@
 			cube.position.y = y;
 			cube.position.z = z;
 
-			scene.add( cube );
+			return cube;
+		}
+		function makeText(theText, size, x, y, z){
+			var material = new THREE.MeshLambertMaterial( { color: 0x333333, shading: THREE.FlatShading, overdraw: true } );
+			//get text from hash (?)
+			var hash = document.location.hash.substr( 1 );
+
+				if ( hash.length !== 0 ) {
+
+					theText = hash;
+
+				}
+
+			var text3d = new THREE.TextGeometry( theText, {
+
+					size: size,
+					height: .00000000000000000001,
+					curveSegments: 6,
+					font: "helvetiker"
+
+				});
+
+				text3d.computeBoundingBox();
+				var centerOffsetX = -0.5 * ( text3d.boundingBox.max.x - text3d.boundingBox.min.x );
+				var centerOffsetY = -0.5 * ( text3d.boundingBox.max.y - text3d.boundingBox.min.y );
+				var centerOffsetZ = -0.5 * ( text3d.boundingBox.max.z - text3d.boundingBox.min.z );
+				console.log(text3d);
+
+				text = new THREE.Mesh( text3d, material );
+
+				text.position.x = centerOffsetX + x;
+				text.position.y = centerOffsetY + y;
+				text.position.z = centerOffsetZ + z;
+
+				return text;
 		}
 		</script>
 
