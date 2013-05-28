@@ -56,16 +56,8 @@ for(var i = 0; i < rows; i++){
 }
 
 /*----------------Andrew's Stuff---------------*/
-var charts = [];
-charts[0] = new chartQuad([100, 200, 300, 400, 500, 600, 700, 800], 1000, unit, 0, unit/2, 0);
-charts[1] = new chartQuad([100, 200, 300, 400, 500, 600, 700, 800], 1000, unit, 0, unit/2, 0);
-charts[2] = new chartQuad([100, 200, 300, 400, 500, 600, 700, 800], 1000, unit, 0, unit/2, 0);
-charts[3] = new chartQuad([100, 200, 300, 400, 500, 600, 700, 800], 1000, unit, 0, unit/2, 0);
-segments[0].add(charts[0].chart);
-segments[1].add(charts[1].chart);
-segments[2].add(charts[2].chart);
-segments[3].add(charts[3].chart);
-/*---------------End Andrew's Stuff------------*/
+var charts = makeCharts(segments);
+
 
 /*-----------------Lighting--------------------*/
 var directionalLight = new THREE.DirectionalLight(0xFFFFFF, 0.6);
@@ -102,10 +94,10 @@ function rotateCamera(){
 
 	canRotateCamera = false;
 	if(camera.position.x > 490)
-		sideView = true;
-	else
 		sideView = false;
-	if(sideView){
+	else
+		sideView = true;
+	if(!sideView){
 		for(var i = 0; i < charts.length; i++)
 			charts[i].unstack(animationTime, easingFunction);
 		var moveToFront = new TWEEN.Tween(
@@ -277,6 +269,10 @@ function onKeyDown ( event ) {
 		case 81: /*q*/
 			if(canRotateCamera)
 				rotateCamera();
+			break;
+		case 83: /*s*/
+			if(canCycle && !sideView)
+				switchCharts();
 			break;
 	}
 }

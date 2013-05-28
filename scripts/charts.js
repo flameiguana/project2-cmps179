@@ -1,21 +1,71 @@
-/**
-		* Makes the chart type we were talking about, with the center of 
-		* its base at x,y,z. Scene is just the scene were using, data1 and
-		* data2 are just numbers, and normalizedTo is the value that we are
-		* normalizing the data to
-		* NOTE: If we wanted to have the text aligned to the bottom of the charts
-		* 		all we would have to do is flip the signs on the text1a, 1b, etc. 
-		*		signs
-		*/
-		function chartQuad(data, normalizedTo, totalSize, x, y, z){
+		var chartsMoney = [];
+		var chartsBids = [];
+		var viewingMoney;
+		function makeCharts(segments){
+			chartsMoney[0] = new chartQuad([38, 7, 10, 11, 85, 45, 74, 20], 100, unit, 0, unit/2, 0, true);
+			chartsMoney[1] = new chartQuad([3, 12, 4, 13, 114, 27, 118, 0], 100, unit, 0, unit/2, 0, true);
+			chartsMoney[2] = new chartQuad([10, 4, 23, 7, 19, 21, 70, 36], 100, unit, 0, unit/2, 0, true);
+			chartsMoney[3] = new chartQuad([6, 4, 0, 7, 20, 0, 0, 13], 100, unit, 0, unit/2, 0, true);
+
+			chartsBids[0] = new chartQuad([148, 41, 53, 87, 360, 12, 1, 12], 150, unit, 0, unit/2, 0);
+			chartsBids[1] = new chartQuad([48, 21, 43, 35, 22, 7, 13, 0], 150, unit, 0, unit/2, 0);
+			chartsBids[2] = new chartQuad([96, 125, 52, 42, 112, 6, 46, 12], 150, unit, 0, unit/2, 0);
+			chartsBids[3] = new chartQuad([4, 61, 0, 22, 1, 0, 0, 1], 150, unit, 0, unit/2, 0);
+
+			console.log(chartsMoney[0].chart);
+
+			segments[0].add(chartsMoney[0].chart);
+		 	segments[1].add(chartsMoney[1].chart);
+		 	segments[2].add(chartsMoney[2].chart);
+		 	segments[3].add(chartsMoney[3].chart);
+
+			viewingMoney = true;
+
+			return chartsMoney;
+		}
+
+		function switchCharts(){
+			if(viewingMoney){
+				console.log("viewingMoney");
+				segments[0].remove(chartsMoney[0].chart);
+				segments[1].remove(chartsMoney[1].chart);
+				segments[2].remove(chartsMoney[2].chart);
+				segments[3].remove(chartsMoney[3].chart);
+
+				segments[0].add(chartsBids[0].chart);
+				segments[1].add(chartsBids[1].chart);
+				segments[2].add(chartsBids[2].chart);
+				segments[3].add(chartsBids[3].chart);
+
+				charts = chartsBids;
+				viewingMoney = false;
+			}
+			else{
+				console.log("notViewingMoney");
+				segments[0].remove(chartsBids[0].chart);
+				segments[1].remove(chartsBids[1].chart);
+				segments[2].remove(chartsBids[2].chart);
+				segments[3].remove(chartsBids[3].chart);
+
+				segments[0].add(chartsMoney[0].chart);
+				segments[1].add(chartsMoney[1].chart);
+				segments[2].add(chartsMoney[2].chart);
+				segments[3].add(chartsMoney[3].chart);
+
+				charts = chartsMoney;
+				viewingMoney = true;
+			}
+		}
+
+		var MAX_HEIGHT = 150;
+		function chartQuad(data, normalizedTo, totalSize, x, y, z, isMoney){
 			var SQUARE_CHART_SIZE = totalSize/2;//the size of each pillar
 			var MAX_HEIGHT = 200;
 			var material1 = new THREE.MeshLambertMaterial( { color: 0xff0fff, shading: THREE.FlatShading, overdraw: true } );
-			var material2 = new THREE.MeshLambertMaterial( { color: 0xff0f0f, shading: THREE.FlatShading, overdraw: true } );
+			var material2 = new THREE.MeshLambertMaterial( { color: 0xff0f0f, shading: THREE.FlatShading, overdraw: true,} );
+			var material3 = new THREE.MeshBasicMaterial({color: 0xffffff});
 			//var totalSize = 50;
 
-			this.pillarsFront = [];
-			this.pillarsBack = [];
 
 			var sumFront = 0;
 			var sumBack = 0;
@@ -23,6 +73,10 @@
 				sumFront += data[i];
 				sumBack += data[i + data.length/2];
 			}
+
+			//pillars
+			this.pillarsFront = [];
+			this.pillarsBack = [];
 
 			this.positionsX = [ totalSize*.25 - SQUARE_CHART_SIZE*3, 
 							 totalSize*.25 - SQUARE_CHART_SIZE,
@@ -35,17 +89,23 @@
 			this.positionsY = [0,0,0,0,0,0,0,0];
 			this.positionsZ = [totalSize*.25,  totalSize*.25,  totalSize*.25,  totalSize*.25, -totalSize*.25, -totalSize*.25, -totalSize*.25, -totalSize*.25]
 
-			this.pillarsFront[0] = new pillar(data[0], normalizedTo, totalSize, material1, this.positionsX[0], this.positionsY[0], this.positionsZ[0]);
-			this.pillarsFront[1] = new pillar(data[1], normalizedTo, totalSize, material1, this.positionsX[1], this.positionsY[1], this.positionsZ[1]);
-			this.pillarsFront[2] = new pillar(data[2], normalizedTo, totalSize, material1, this.positionsX[2], this.positionsY[2], this.positionsZ[2]);
-			this.pillarsFront[3] = new pillar(data[3], normalizedTo, totalSize, material1, this.positionsX[3], this.positionsY[3], this.positionsZ[3], sumFront);
+			this.pillarsFront[0] = new pillar(data[0], normalizedTo, totalSize, material1, this.positionsX[0], this.positionsY[0], this.positionsZ[0], isMoney);
+			this.pillarsFront[1] = new pillar(data[1], normalizedTo, totalSize, material1, this.positionsX[1], this.positionsY[1], this.positionsZ[1], isMoney);
+			this.pillarsFront[2] = new pillar(data[2], normalizedTo, totalSize, material1, this.positionsX[2], this.positionsY[2], this.positionsZ[2], isMoney);
+			this.pillarsFront[3] = new pillar(data[3], normalizedTo, totalSize, material1, this.positionsX[3], this.positionsY[3], this.positionsZ[3], isMoney, sumFront);
 
-			this.pillarsBack[0] = new pillar(data[4], normalizedTo, totalSize,  material2, this.positionsX[4], this.positionsY[4], this.positionsZ[4]);
-			this.pillarsBack[1] = new pillar(data[5], normalizedTo, totalSize,  material2, this.positionsX[5], this.positionsY[5], this.positionsZ[5]);
-			this.pillarsBack[2] = new pillar(data[6], normalizedTo, totalSize,  material2, this.positionsX[6], this.positionsY[6], this.positionsZ[6]);
-			this.pillarsBack[3] = new pillar(data[7], normalizedTo, totalSize,  material2, this.positionsX[7], this.positionsY[7], this.positionsZ[7], sumBack);
+			this.pillarsBack[0] = new pillar(data[4], normalizedTo, totalSize,  material2, this.positionsX[4], this.positionsY[4], this.positionsZ[4], isMoney);
+			this.pillarsBack[1] = new pillar(data[5], normalizedTo, totalSize,  material2, this.positionsX[5], this.positionsY[5], this.positionsZ[5], isMoney);
+			this.pillarsBack[2] = new pillar(data[6], normalizedTo, totalSize,  material2, this.positionsX[6], this.positionsY[6], this.positionsZ[6], isMoney);
+			this.pillarsBack[3] = new pillar(data[7], normalizedTo, totalSize,  material2, this.positionsX[7], this.positionsY[7], this.positionsZ[7], isMoney, sumBack);
+
+			//backdrop
+		 	this.plane = new THREE.Mesh(new THREE.PlaneGeometry(totalSize*4, MAX_HEIGHT*2), material3);
+		 	this.plane.position.x = 0; this.plane.position.y = totalSize; this.plane.position.z = -totalSize/2+.01;
 
 			this.chart = new THREE.Object3D();
+
+			this.chart.add(this.plane);
 
 			for(var i = 0; i < this.pillarsFront.length; i++){
 				this.chart.add(this.pillarsFront[i].pillar);
@@ -57,6 +117,7 @@
 			this.chart.position.z = z;
 
 			this.stack = function(animationTime, easingFunction){
+				this.plane.visible = false;
 				var newYFront = []
 				var newYBack = []
 				var totalHeightFront = 0;
@@ -81,6 +142,7 @@
 					backY1: this.positionsY[5]+this.pillarsBack[1].height/2,
 					backY2: this.positionsY[6]+this.pillarsBack[2].height/2,
 					backY3: this.positionsY[7]+this.pillarsBack[3].height/2,
+
 					pillarsBack: this.pillarsBack
 				})
 				.to({ 
@@ -109,13 +171,12 @@
 			}
 
 			this.unstack = function(animationTime, easingFunction){
+				this.plane.visible = true;
 				var newYFront = [];
 				var newYBack = [];
 				for(var i = 0; i < this.pillarsFront.length; i++){
 					newYFront[i] = this.positionsY[i] + this.pillarsFront[i].height/2;
 					newYBack[i] = this.positionsY[i] + this.pillarsBack[i].height/2;
-					//this.pillarsFront[i].pillar.position.y = this.positionsY[i] + this.pillarsFront[i].height/2;
-					//this.pillarsBack [i].pillar.position.y = this.positionsY[i+4] + this.pillarsBack[i].height/2;
 				}
 
 				var unstackit = new TWEEN.Tween(
@@ -131,6 +192,9 @@
 					backY1: this.pillarsBack[1].pillar.position.y,
 					backY2: this.pillarsBack[2].pillar.position.y,
 					backY3: this.pillarsBack[3].pillar.position.y,
+
+					planeScale: .000000001,
+					plane: this.plane,
 					pillarsBack: this.pillarsBack
 				})
 				.to({ 
@@ -142,6 +206,8 @@
 					backY1: newYBack[1],
 					backY2: newYBack[2],
 					backY3: newYBack[3],
+					planeScale: 1,
+
 				}, animationTime)
 				.easing(easingFunction)
 				.onUpdate(function(){
@@ -154,24 +220,28 @@
 					this.pillarsBack[1].pillar.position.y = this.backY1;
 					this.pillarsBack[2].pillar.position.y = this.backY2;
 					this.pillarsBack[3].pillar.position.y = this.backY3;
+					this.plane.scale.y = this.planeScale;
 				})
+				//.onComplete(function(){this.plane.visible=true; console.log(this.plane)})
 				unstackit.start();
 			}
 		}
-		function pillar(data, normalizedTo, totalSize, material, x, y, z, text){
+		function pillar(data, normalizedTo, totalSize, material, x, y, z, isMoney, text){
 			var SQUARE_CHART_SIZE = totalSize/2;//the size of each pillar
-			var MAX_HEIGHT = 200;
 			this.height = data/normalizedTo*MAX_HEIGHT;
 
 			this.pillar = makeCube(material, x, y+this.height/2, z, SQUARE_CHART_SIZE, this.height, SQUARE_CHART_SIZE);
 
-			var text1a = makeText(data, SQUARE_CHART_SIZE*.8, 0, 0, 0);
+			var prefix = "";
+			if(isMoney)
+				prefix = "$";
+			var text1a = makeText(prefix+data, SQUARE_CHART_SIZE*.8, 0, 0, 0);
 			text1a.rotation.z = Math.PI/2;
-			text1a.position.x = SQUARE_CHART_SIZE/2.4; text1a.position.y = -this.height/2; text1a.position.z = SQUARE_CHART_SIZE/2+.0000001;
+			text1a.position.x = SQUARE_CHART_SIZE/2.4; text1a.position.y = this.height/2; text1a.position.z = SQUARE_CHART_SIZE/2+.001;
 			if(text != undefined){
-				var text1b = makeText(text, SQUARE_CHART_SIZE*.8, 0, 0, 0);
+				var text1b = makeText(prefix+text, SQUARE_CHART_SIZE*.8, 0, 0, 0);
 				text1b.rotation.z = Math.PI/2; text1b.rotation.y = Math.PI/2;
-				text1b.position.x = SQUARE_CHART_SIZE/2+.0000001; text1b.position.y = -this.height/2; text1b.position.z = -SQUARE_CHART_SIZE/2.4;
+				text1b.position.x = SQUARE_CHART_SIZE/2+.001; text1b.position.y = -this.height/2; text1b.position.z = -SQUARE_CHART_SIZE/2.4;
 				this.pillar.add(text1b);
 			}
 
@@ -202,9 +272,9 @@
 			var text3d = new THREE.TextGeometry( theText, {
 
 					size: size,
-					height: 1.00000000000000000001,
+					height: .00000000000000000001,
 					curveSegments: 6,
-					font: "helvetiker"
+					font: "gentilis"
 
 				});
 
