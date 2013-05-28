@@ -1,0 +1,29 @@
+/*
+Color Scheme
+------------
+cream: #f8f4e6;
+light blue: #6a8aff;
+dark blue: #294199;
+light red: #db1e46;
+dark red: #3d0310;
+*/
+html{
+	font-family: sans-serif;
+}
+body{
+	background-color:#f8f4e6;
+}
+#h1{
+	color: #294199;
+	border-bottom: 5px solid #6a8aff;
+	width: wrap;
+	font-size: 45px;
+}
+#content{
+	width: 1000px;
+	border-style: solid;
+	border-radius: 20px;
+	border-color: #db1e46;
+	border-width: 20px;
+	margin: auto;
+}
