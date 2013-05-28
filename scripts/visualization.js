@@ -5,7 +5,7 @@ var cw = $container.width();
 //Set container height to width
 //16:9 aspect ratio
 $container.css({'height': (cw * .55) +'px'});
-
+$('#usage').css()
 var WIDTH = $container.width();
 var HEIGHT = $container.height();
 var mouseX = 0; 
@@ -243,10 +243,11 @@ function cycleBlock(blocks){
 //This function calls itself when browser is ready to animate
 function renderScene(){
 	var timer = Date.now() * 0.0006;
-
+	/*
 	camera.position.x = Math.cos( timer ) * 200;
 	camera.position.z = Math.sin( timer ) * 200;
 	camera.lookAt( scene.position );
+	*/
 	TWEEN.update();
 	if(cycle === true){
 		cycleBlock(segments);
