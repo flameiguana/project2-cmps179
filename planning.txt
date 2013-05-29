@@ -58,17 +58,11 @@ go back to axis vew by pressing the same key again
 
 Introduction
 
-Although it is widely known that the compact disc format outsells vinyl records by a lot, 
-there is still an audience for this analog format. Nielsen reports that in 2012, sales of LP albums rose by 17.7% compared to 2011, whereas sales of CDs dropped by 13.5%. Although eBay may not be the first place people go to for music on physical media, we tried to coax something out of the data.
+Although it is widely known that the compact disc format outsells vinyl records by a lot, there is still an audience for this analog format. Nielsen reports that in 2012, sales of LP albums rose by 17.7% compared to 2011, whereas sales of CDs dropped by 13.5%. Although eBay may not be the first place people go to for music on physical media, we tried to coax something out of the data.
 
-We measured two things:
-Activity - Recent sales, current sales, and bid counts.
+We measured two things from the eBay data: recent sales count and average revenue. Of course, sales activity is expected to always be lower for vinyl than for CD. To make the comparisons more interesting we picked certain albums to compare.
 
-Revenue - The amount of money obtained from selling music on eBay.
-
-Of course, activity would always be lower for vinyl than for CD.
-To make the comparisons more interesting, we also looked at two other things:
-
+These are the criteria.
 1. Release date of an album (80s, 90s, 00s, 2012)
 2. Genre (Pop, Hip Hop, Rock, Country)
 

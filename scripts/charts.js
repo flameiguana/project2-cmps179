@@ -2,15 +2,23 @@
 		var chartsBids = [];
 		var viewingMoney;
 		function makeCharts(segments){
-			chartsMoney[0] = new chartQuad([38, 7, 10, 11, 85, 45, 74, 20], 100, unit, 0, unit/2, 0, true);
-			chartsMoney[1] = new chartQuad([3, 12, 4, 13, 114, 27, 118, 0], 100, unit, 0, unit/2, 0, true);
-			chartsMoney[2] = new chartQuad([10, 4, 23, 7, 19, 21, 70, 36], 100, unit, 0, unit/2, 0, true);
-			chartsMoney[3] = new chartQuad([6, 4, 0, 7, 20, 0, 0, 13], 100, unit, 0, unit/2, 0, true);
+			/*
+			pop
+			hip hop
+			rock
+			country
+			*/
+			//cd, vinyl (oldest to newest)
+			chartsMoney[0] = new chartQuad([34, 6, 10, 12, 83, 46, 75, 21], 100, unit, 0, unit/2, 0, true);
+			chartsMoney[1] = new chartQuad([4, 15, 5, 19, 115, 30, 118, 22], 100, unit, 0, unit/2, 0, true);
+			chartsMoney[2] = new chartQuad([14, 4, 21, 11, 19, 24, 70, 53], 100, unit, 0, unit/2, 0, true);
+			chartsMoney[3] = new chartQuad([6, 4, 0, 8, 20, 0, 0, 13], 100, unit, 0, unit/2, 0, true);
 
-			chartsBids[0] = new chartQuad([148, 41, 53, 87, 360, 12, 1, 12], 150, unit, 0, unit/2, 0);
-			chartsBids[1] = new chartQuad([48, 21, 43, 35, 22, 7, 13, 0], 150, unit, 0, unit/2, 0);
-			chartsBids[2] = new chartQuad([96, 125, 52, 42, 112, 6, 46, 12], 150, unit, 0, unit/2, 0);
-			chartsBids[3] = new chartQuad([4, 61, 0, 22, 1, 0, 0, 1], 150, unit, 0, unit/2, 0);
+			//cd, vinyl
+			chartsBids[0] = new chartQuad([180, 39, 72, 101, 369, 12, 1, 17], 150, unit, 0, unit/2, 0);
+			chartsBids[1] = new chartQuad([57,35,59,26,22,8,2,2], 150, unit, 0, unit/2, 0);
+			chartsBids[2] = new chartQuad([112, 160, 63, 63, 114, 7, 47, 25], 150, unit, 0, unit/2, 0);
+			chartsBids[3] = new chartQuad([4, 60, 0, 28, 1, 0, 0, 1], 150, unit, 0, unit/2, 0);
 
 			console.log(chartsMoney[0].chart);
 
@@ -62,7 +70,7 @@
 			var SQUARE_CHART_SIZE = totalSize/2;//the size of each pillar
 			var MAX_HEIGHT = 200;
 			var material1 = new THREE.MeshLambertMaterial( { color: 0xff0fff, shading: THREE.FlatShading, overdraw: true } );
-			var material2 = new THREE.MeshLambertMaterial( { color: 0xff0f0f, shading: THREE.FlatShading, overdraw: true,} );
+			var material2 = new THREE.MeshLambertMaterial( { color: 0x0055AD, shading: THREE.FlatShading, overdraw: true,} );
 			var material3 = new THREE.MeshBasicMaterial({color: 0xffffff});
 			//var totalSize = 50;
 
@@ -259,7 +267,7 @@
 			return cube;
 		}
 		function makeText(theText, size, x, y, z){
-			var material = new THREE.MeshLambertMaterial( { color: 0x333333, shading: THREE.FlatShading, overdraw: true } );
+			var material = new THREE.MeshLambertMaterial( { color: 0x212121, shading: THREE.FlatShading, overdraw: true } );
 			//get text from hash (?)
 			var hash = document.location.hash.substr( 1 );
 

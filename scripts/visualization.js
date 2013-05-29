@@ -5,7 +5,7 @@ var cw = $container.width();
 //Set container height to width
 //16:9 aspect ratio
 $container.css({'height': (cw * .55) +'px'});
-$('#usage').css()
+$('#usage').css({'height' : (cw * .55) +'px'})
 var WIDTH = $container.width();
 var HEIGHT = $container.height();
 var mouseX = 0; 
@@ -40,7 +40,7 @@ scene.add(camera);
 /* ------------Set up geometry*-----------------------*/
 
 //TODO Make all of this one object, witth cycleBlock internal function
-var unit = HEIGHT * .3;
+var unit = HEIGHT * .26;
 var rows = 4;
 var segments = [];
 var covers = ["img/pop.jpg", "img/hiphop.jpg", "img/rock.jpg", "img/country.jpg"];
@@ -60,11 +60,11 @@ var charts = makeCharts(segments);
 /*-----------------Lighting--------------------*/
 //Use three directional lights to make boxes not look flat.
 
-var frontLight = new THREE.DirectionalLight(0xFFFFFF, .8);
+var frontLight = new THREE.DirectionalLight(0xFFFFFF, .85);
 frontLight.position.set(0, 1, 1);
 scene.add(frontLight);
 
-var rightLight = new THREE.DirectionalLight(0xFFFFFF, 0.6);
+var rightLight = new THREE.DirectionalLight(0xFFFFFF, 0.8);
 rightLight.position.set(1, 0, 1);
 scene.add(rightLight);
 
@@ -247,8 +247,8 @@ function renderScene(){
 	/*
 	camera.position.x = Math.cos( timer ) * 200;
 	camera.position.z = Math.sin( timer ) * 200;
-	camera.lookAt( scene.position );
 	*/
+	camera.lookAt( scene.position );
 	TWEEN.update();
 	if(cycle === true){
 		cycleBlock(segments);
@@ -301,5 +301,4 @@ document.addEventListener('mousemove', function(event){
 /*
 //http://konrad.strack.pl/blog/image-concatenation-with-imagemagick#.UaMB80BwqrQ
 http://www.elated.com/articles/rotatable-3d-product-boxshot-threejs/
-http://www.flickr.com/groups/itunesgenres/pool/
 */

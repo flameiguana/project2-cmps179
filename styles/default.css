@@ -39,16 +39,21 @@ canvas
 {
 	background-color: #FFFFFF;
 	margin: 4px 0;
-	padding: 2em;
+	padding: 1em;
 	border-radius: 8px;
 }
 
-h1
+h2, h3
 {
 	text-align: center;
-	margin: 0em;
+	font-weight: bold;
+	margin-bottom: 0;
 }
 
+h4
+{
+	margin-bottom: 0;
+}
 
 #banner{
 	width: 64%;
@@ -64,4 +69,14 @@ h1
 {
 	/*Places it below any floating elements.*/
 	clear: both;
+}
+
+#vinyl
+{
+	list-style-image: url('blue.png')
+}
+
+#cd
+{
+	list-style-image: url('pink.png')
 }

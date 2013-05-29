@@ -7,7 +7,6 @@ function baseChunk(z, unit, color, covers, genre){
 	var height = unit;
 	var coverMaterials = [];
 
-
 	var baseColor = new THREE.MeshLambertMaterial({color: color});
 	var genreFace = new THREE.MeshLambertMaterial(
 		{
@@ -31,7 +30,8 @@ function baseChunk(z, unit, color, covers, genre){
 	//mainMaterial.wrapAround = true;
 	var mesh = new THREE.Mesh(geometry, mainMaterial);
 	console.log(z);
-	mesh.position.set(0, -unit,z);
+	//put it somewhere near bottom. a guesttimate
+	mesh.position.set(0, -(unit*1.25),z);
 	return mesh;
 }
 

@@ -10,19 +10,52 @@
 		<img src="img/title.png" id="banner">
 	</div>
 	<div id = "introduction" class="textual">
-		<p>Junk</p>
+		<h2>Overview</h2>
+		<p>Although it is widely known that compact discs outsell vinyl records by a large margin, there is still an audience for this analog format. <a href="http://www.businesswire.com/news/home/20130104005149/en/Nielsen-Company-Billboard%E2%80%99s-2012-Music-Industry-Report">Nielsen</a> reports that in 2012, sales of LP albums rose by 17.7% compared to 2011, whereas sales of CDs dropped by 13.5%. Although eBay may not be the first place music fans think of when looking to buy music in a physical format, we used it as our place of investigation nonetheless. Results were limited to items sold on the US site.</p>
+		<p>We graphed two things from the eBay data: recent sales count and average revenue. Of course, sales activity is expected to always be lower for vinyl than for CDs. To make the comparisons more interesting we chose certain albums to compare, instead of just overall statistics.</p>
+		<p>These are the two factors used to differentiate the albums:</p>
+		<ol>
+			<li>Release Date (80s, 90s, 00s, 2012)</li>
+			<li>Genre (Pop/R&amp;B, Hip Hop, Rock, Country)</li>
+		</ol>
+		<p>The albums were chosen based on sales numbers. You can read more about the selection process in the section below the visualization.</p>
+		<p>The aim of our visualization is to present the above values in a way that is easy to digest. The use of the 3D allows the reader to look at the data album by album, format by format, and genre by genre straightforwardly. Note that sales count and average revenue were plotted separately. These should be seen as two independent data points of interest.</p>
 	</div>
 	<div id = "container"></div>
 	<div id = "usage" class = "textual">
 		<h3>Usage</h3>
+			<p><b>Q</b>: Alternate between front and side view.</p>
+			<p><b>C</b>: Cycle genre currently in front to the back.</p>
+			<p><b>S</b>: Switch between plotting total sales and average revenue.</p>
+		<h4>Color Legend</h4>
 		<ul>
-			<li><b>Q</b>: Alternate between front and side view.</li>
-			<li><b>C</b>: Cycle genre currently in front to the back.</li>
-			<li><b>Q</b>: Alternate between front and side view.</li>
+			<li id = "vinyl">Vinyl</li>
+			<li id = "cd">CD</li>
 		</ul>
 	</div>
 	<div id = "comments" class="textual">
-		<p>More Info</p>
+		<p>You may be wondering, "Why aren't N'Sync or The Backstreet Boys on here?" Simply put, either no vinyl version was released, or it was in such limited availability that no copy has recently surfaced on eBay. When we started planning which albums to select, we manually went through the highest selling ones based on RIAA (Nielsen/Billboard 200 for 2012) data until we could find at least one vinyl copy on eBay.These albums were chosen to represent their genre for the particular time frame.</p>
+		<p>Country albums in the last decade were the worst offenders for not having LP versions. No platinum certified or higher country album was found on vinyl. For whatever reason, country music fans don't support or demand this medium very much.</p>
+		<p>Here is a partial list of ommitted country albums released from 2000-2009.</p>
+		<ul>
+ 			<li>Shania Twain - Up</li>
+ 			<li>Carrie Underwoods - Some Hearts</li>
+ 			<li>Dixie Chicks - Home</li>
+ 			<li>Wilson Gretchen - Here for the Party </li>
+ 			<li>Kenney Chesney  - When the Sun Goes Down</li>
+ 			<li>Keith Urban  - Be Here</li>
+ 			<li>Zac Brown Band - The Foundation</li>
+ 			<li>Toby Keith - Shock'n Y'all</li>
+ 			<li>Big &amp; Rich - Horse of a Different Color</li>
+ 			<li>Tim McGraw  - Live Like You Were Dying</li>
+ 			<li>Brad Paisely -  Time Well Wasted</li>
+ 			<li>Josh Turner  - Your Man</li>
+ 			<li>Kenny Chesney -  No Shirt, No Shoes, No Problems</li>
+		</ul>
+		<p>Also note that for 2012, although Taylor Swifts's "Red" was available on vinyl, it did not classify as country in our books.</p>
+
+		<p>Another question the reader may ask is, "Why did you pick the highest selling albums only?" The main reason is that we wanted to be unbiased. Two alternatives were considered. One of them is that we pick our own favorite albums and graph their data. The other one was that we look at music critics' best albums of the decade list for a particular genre and collect data on some of those. Higher sales seemed like the more straighforward one.</p>
+
 	</div>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 	<script src="scripts/tween.min.js"> </script>
