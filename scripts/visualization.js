@@ -4,8 +4,8 @@ var $container = $('#container');
 var cw = $container.width();
 //Set container height to width
 //16:9 aspect ratio
-$container.css({'height': (cw * .55) +'px'});
-$('#usage').css({'height' : (cw * .55) +'px'})
+$container.css({'height': (cw * .5625) +'px'});
+$('#usage').css({'height' : (cw * .5625) +'px'})
 var WIDTH = $container.width();
 var HEIGHT = $container.height();
 var mouseX = 0; 
@@ -158,6 +158,25 @@ function rotateCamera(switchAfterwards){
 			});
 		moveToSide.start();
 	}
+	if(switchAfterwards)
+		switchCharts();
+}
+
+var shouldStack = false;
+
+//Switches the stacks heights without changing camera.
+function changeStacks(){
+		if(shouldStack){
+			for(var i = 0; i < charts.length; i++)
+				charts[i].stack(animationTime, easingFunction);
+		}
+		else{
+			for(var i = 0; i < charts.length; i++){
+				charts[i].unstack(animationTime, easingFunction);
+				//charts[i].plane.visible = false;
+			}
+		}
+		shouldStack = !shouldStack;
 }
 
 function cycleBlock(blocks){
@@ -253,13 +272,14 @@ function cycleBlock(blocks){
 	}
 }
 
+var overViewMode = false;
 //This function calls itself when browser is ready to animate
 function renderScene(){
-	var timer = Date.now() * 0.0006;
-	/*
-	camera.position.x = Math.cos( timer ) * 200;
-	camera.position.z = Math.sin( timer ) * 200;
-	*/
+	var timer = Date.now() * 0.0004;
+	if(overViewMode){
+		camera.position.x = Math.cos( timer ) * 200;
+		camera.position.z = Math.sin( timer ) * 200;
+	}
 	camera.lookAt( scene.position );
 	TWEEN.update();
 	if(cycle === true){
@@ -277,6 +297,7 @@ requestAnimationFrame(renderScene);
 /*Handle various keyboard clicks*/
 document.addEventListener('keydown', onKeyDown, false);
 
+
 function onKeyDown ( event ) {
 	switch ( event.keyCode ) {
 		case 76: /*l*/
@@ -289,14 +310,41 @@ function onKeyDown ( event ) {
 			}
 			break;
 		case 81: /*q*/
-			if(canRotateCamera)
+			if(overViewMode){
+				changeStacks();
+			}
+			else if(canRotateCamera){
 				rotateCamera();
+			}
 			break;
 		case 83: /*s*/
 			if(canCycle && !sideView)
 				switchCharts();
 			else
 				rotateCamera(true);
+			break;
+		case 70: /*f*/
+			var scale = 1.25;
+			if(!overViewMode){
+				camera.left = camera.left * scale;
+				camera.right = camera.right * scale;
+				camera.top = camera.top * scale;
+				camera.bottom = camera.bottom * scale;
+				camera.updateProjectionMatrix();
+				camera.position.y = 200;
+				overViewMode = true;}
+			else {
+				if(!shouldStack){
+					changeStacks();
+				}
+				camera.left = camera.left * 1/scale;
+				camera.right = camera.right * 1/scale;
+				camera.top = camera.top * 1/scale;
+				camera.bottom = camera.bottom * 1/scale;
+				camera.updateProjectionMatrix();
+				camera.position.set(0,0,500);
+				overViewMode = false;
+			}
 			break;
 	}
 }
