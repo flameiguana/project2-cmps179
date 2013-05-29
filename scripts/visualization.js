@@ -181,12 +181,18 @@ function cycleBlock(blocks){
 	var moveUp = new TWEEN.Tween(
 		{
 			//TODO: also update its children. Object3d has children attribute
-			y: originalLocations[counter].y
+			y: originalLocations[counter].y,
+			rotationX : 0
 		})
-		.to({ y: originalLocations[counter].y + unit}, 400)
+		.to(
+			{
+			 y: originalLocations[counter].y - unit,
+			 rotationX : degToRad(90)
+			}, 400)
 		.easing(TWEEN.Easing.Linear.None)
 		.onUpdate(function(){
 			segments[current].position.y = this.y;
+			segments[current].rotation.x= this.rotationX;
 		});
 
 	var moveForward = new TWEEN.Tween(
@@ -217,12 +223,18 @@ function cycleBlock(blocks){
 	var moveDown = new TWEEN.Tween(
 	{
 		y: 0,
-		originalY: segments[current].position.y + unit //recall that it will be moved up
+		originalY: segments[current].position.y - unit, //recall that it will have been moved down
+		rotationX: degToRad(90)
 	})
-	.to({ y : unit}, 400)
+	.to(
+		{
+		 y : unit,
+		 rotationX : degToRad(360)
+		}, 400)
 	.easing(TWEEN.Easing.Linear.None)
 	.onUpdate(function(){
-		segments[current].position.y = this.originalY - this.y;
+		segments[current].position.y = this.originalY + this.y;
+		segments[current].rotation.x = this.rotationX;
 	})
 	.onComplete(function(){
 		canCycle = true; ///re enable key

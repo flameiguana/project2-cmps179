@@ -35,5 +35,5 @@ function baseChunk(z, unit, color, covers, genre){
 	return mesh;
 }
 
-
+function degToRad(degree)   { return degree*(Math.PI/180);}
 
