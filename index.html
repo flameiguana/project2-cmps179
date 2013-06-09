@@ -22,9 +22,12 @@
 		<p>The aim of our visualization is to present the above values in a way that is easy to digest. The use of the 3D allows the reader to look at the data album by album, format by format, and genre by genre straightforwardly. Note that sales count and average revenue were plotted separately. These should be seen as two independent data points of interest.</p>
 	</div>
 	<div id = "container-container">
-		<div class="chart-indicator" id="sales"><img src="img/ticket.png"/> <span class="chart-text">Sales Count<span></div>
-		<div class="chart-indicator" id="price" style="display:none"><img src="img/billing.png"/> <span class="chart-text">Average Price<span></div>
 		<div id = "container">
+		<div class="chart-indicator" id="sales"  style="display:none"> <img class="chart-icon" src="img/ticket.png"/> <span class="chart-text">Sales Count</span></div>
+		<div class="chart-indicator" id="price"><img class="chart-icon" src="img/billing.png"/> <span class="chart-text">Average Price</span></div>
+		<div style="clear: both"></div>
+		<div class="view-indicator" id="decade"> <img class="chart-icon" src="img/statistics.png"/> <span class="view-text">Decade View</span></div>
+		<div class="view-indicator" id="genre" style="display:none"><img class="chart-icon" src="img/database.png"/> <span class="view-text">Genre View</span></div>
 		</div>
 	</div>
 	<div id = "usage" class = "textual">
@@ -82,6 +85,25 @@
 		});
 		$(".chart-indicator").on("mouseleave", function(){
 			$(".chart-indicator .chart-text").css("display", "none");
+		});
+		$(".chart-indicator").on("click", function(){
+			if(canCycle)
+				switchCharts(sideView);
+		});
+
+		$(".view-indicator").on("mouseenter", function(){
+			$(".view-indicator .view-text").css("display", "inline");
+		});
+		$(".view-indicator").on("mouseleave", function(){
+			$(".view-indicator .view-text").css("display", "none");
+		});
+		$(".view-indicator").on("click", function(){
+			if(overViewMode){
+				changeStacks();
+			}
+			else if(canRotateCamera){
+				rotateCamera();
+			}
 		});
 	</script>
 </body>

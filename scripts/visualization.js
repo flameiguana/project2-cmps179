@@ -128,6 +128,9 @@ function rotateCamera(){
 			})
 			.onComplete(function(){
 				canRotateCamera = true; ///re enable key
+				//switch the text/icon
+				$("#genre").css("display", "none");
+				$("#decade").css("display", "block");
 			});
 		moveToFront.start();
 	}
@@ -154,7 +157,9 @@ function rotateCamera(){
 			})
 			.onComplete(function(){
 				canRotateCamera = true; ///re enable key
-
+				//switch the text/icon
+				$("#decade").css("display", "none");
+				$("#genre").css("display", "block")
 			});
 		moveToSide.start();
 	}

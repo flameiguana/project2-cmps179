@@ -1,6 +1,11 @@
 		var chartPrices = [];
 		var chartSales = [];
+		var indicatorPrices = [];
+		var indicatorSales = [];
 		var viewingMoney;
+		var MAX_HEIGHT = 140;
+
+
 		function makeCharts(segments){
 			/*
 			pop
@@ -8,23 +13,33 @@
 			rock
 			country
 			*/
+			var maxPrice = 100;
+			var maxUnit = 150;
 			//cd, vinyl (oldest to newest)
 			
 			var colors = [0x74E868, 0x4AE83A, 0x14D100, 0x329D27, 0x08a5d1, 0x078fb5, 0x057d9f, 0x056682]
-			chartPrices[0] = new chartQuad([34, 6, 10, 12, 83, 46, 75, 21], 100, unit, 0, unit/2, 0, colors, true);
-			chartPrices[1] = new chartQuad([4, 15, 5, 19, 115, 30, 118, 22], 100, unit, 0, unit/2, 0, colors, true);
-			chartPrices[2] = new chartQuad([14, 4, 21, 11, 19, 24, 70, 53], 100, unit, 0, unit/2, 0, colors, true);
-			chartPrices[3] = new chartQuad([6, 4, 0, 8, 20, 0, 0, 13], 100, unit, 0, unit/2, 0, colors, true);
+			chartPrices[0] = new chartQuad([34, 6, 10, 12, 83, 46, 75, 21], maxPrice, unit, 0, unit/2, 0, colors, true);
+			chartPrices[1] = new chartQuad([4, 15, 5, 19, 115, 30, 118, 22], maxPrice, unit, 0, unit/2, 0, colors, true);
+			chartPrices[2] = new chartQuad([14, 4, 21, 11, 19, 24, 70, 53], maxPrice, unit, 0, unit/2, 0, colors, true);
+			chartPrices[3] = new chartQuad([6, 4, 0, 8, 20, 0, 0, 13], maxPrice, unit, 0, unit/2, 0, colors, true);
 
 			//cd, vinyl
-			chartSales[0] = new chartQuad([180, 39, 72, 101, 369, 12, 1, 17], 150, unit, 0, unit/2, 0, colors, false);
-			chartSales[1] = new chartQuad([57,35,59,26,22,8,2,2], 150, unit, 0, unit/2, 0, colors, false);
-			chartSales[2] = new chartQuad([112, 160, 63, 63, 114, 7, 47, 25], 150, unit, 0, unit/2, 0, colors, false);
-			chartSales[3] = new chartQuad([4, 60, 0, 28, 1, 0, 0, 1], 150, unit, 0, unit/2, 0, colors, false);
+			chartSales[0] = new chartQuad([180, 39, 72, 101, 369, 12, 1, 17], maxUnit, unit, 0, unit/2, 0, colors, false);
+			chartSales[1] = new chartQuad([57,35,59,26,22,8,2,2], maxUnit, unit, 0, unit/2, 0, colors, false);
+			chartSales[2] = new chartQuad([112, 160, 63, 63, 114, 7, 47, 25], maxUnit, unit, 0, unit/2, 0, colors, false);
+			chartSales[3] = new chartQuad([4, 60, 0, 28, 1, 0, 0, 1], maxUnit, unit, 0, unit/2, 0, colors, false);
 
-			console.log(chartPrices[0].chart);
 			for(var i = 0; i < segments.length; i++)
 				segments[i].add(chartPrices[i].chart);
+
+
+			//make the indicators
+			indicatorPrices[0] = indicators(maxPrice*3, 0, -(unit*.75), unit*2.1, unit*chartSales.length, MAX_HEIGHT*4, 0x3f403f, '$');
+			indicatorPrices[1] = indicators(maxPrice*3, 0, -(unit*.75), unit*2.1, unit*chartSales.length, MAX_HEIGHT*4, 0x3f403f, '$', Math.PI/2);
+			indicatorSales[0] = indicators(maxUnit*3, 0, -(unit*.75), unit*2.1, unit*chartSales.length, MAX_HEIGHT*4, 0x3f403f);
+			indicatorSales[1] = indicators(maxUnit*3, 0, -(unit*.75), unit*2.1, unit*chartSales.length, MAX_HEIGHT*4, 0x3f403f, '', Math.PI/2);
+			scene.add(indicatorPrices[0]);
+			scene.add(indicatorPrices[1]);
 
 			viewingMoney = true;
 
@@ -32,7 +47,6 @@
 		}
 
 		function switchCharts(rotated){
-			console.log($("#sales").css);
 			if(viewingMoney){
 				$("#sales").css("display", "none");
 				$("#price").css("display", "block");
@@ -41,6 +55,14 @@
 					segments[i].remove(chartPrices[i].chart);
 					segments[i].add(chartSales[i].chart);
 				}
+
+				//deal with the indicators
+				scene.remove(indicatorPrices[0]);
+				scene.remove(indicatorPrices[1]);
+				scene.add(indicatorSales[0]);
+				scene.add(indicatorSales[1]);
+
+				//set the current charts
 				charts = chartSales;
 				viewingMoney = false;
 			}
@@ -53,6 +75,13 @@
 					segments[i].add(chartPrices[i].chart);
 				}
 
+				//deal with the indicators
+				scene.remove(indicatorSales[0]);
+				scene.remove(indicatorSales[1]);
+				scene.add(indicatorPrices[0]);
+				scene.add(indicatorPrices[1]);
+
+				//set the current charts
 				charts = chartPrices;
 				viewingMoney = true;
 			}
@@ -72,10 +101,52 @@
 			}
 		}
 
-
 		function makeFlatMaterial(sampleColor){return new THREE.MeshLambertMaterial( { color: sampleColor, ambient: sampleColor, shading: THREE.FlatShading, overdraw: true } );}
-		var MAX_HEIGHT = 140;
 		
+
+		//should make the x, y at the center of the base
+		function indicators(maxValue, x, y, z, width, height, color, prefix, rotation)
+		{
+			var indicator = new THREE.Object3D();
+			var geometrySpline = []
+			geometrySpline[0] = new THREE.Geometry();
+				geometrySpline[0].vertices[0] = new THREE.Vector3( x-width/2, y+height/2, z );
+				geometrySpline[0].vertices[1] = new THREE.Vector3( x+width/2, y+height/2, z );
+			geometrySpline[1] = new THREE.Geometry();
+				geometrySpline[1].vertices[0] = new THREE.Vector3( x-width/2, y+height/2*(1/2), z );
+				geometrySpline[1].vertices[1] = new THREE.Vector3( x+width/2, y+height/2*(1/2), z );
+			geometrySpline[2] = new THREE.Geometry();
+				geometrySpline[2].vertices[0] = new THREE.Vector3( x-width/2, y+height/2*(1/4), z );
+				geometrySpline[2].vertices[1] = new THREE.Vector3( x+width/2, y+height/2*(1/4), z );
+			geometrySpline[3] = new THREE.Geometry();
+				geometrySpline[3].vertices[0] = new THREE.Vector3( x-width/2, y+height/2*(1/8), z );
+				geometrySpline[3].vertices[1] = new THREE.Vector3( x+width/2, y+height/2*(1/8), z );
+			var lines = [];
+			for(var i = 0; i < geometrySpline.length; i++)
+			{
+				geometrySpline[i].computeLineDistances();
+				lines[i] = new THREE.Line( geometrySpline[i], new THREE.LineDashedMaterial( { color: color, dashSize: 1, gapSize: .3, scale: .1} ), THREE.LineStrip );
+				indicator.add(lines[i]);
+			}
+
+			var displacement = 30;
+			var size = 20;
+			var texts = [];
+			if(prefix == undefined)
+				prefix = "";
+			texts[0] = makeText(prefix+maxValue*(2/3), size, x-width/2-displacement, y+height/2, z);
+			texts[1] = makeText(prefix+maxValue*(2/3)/2, size, x-width/2-displacement, y+height/2*(1/2), z);
+			texts[2] = makeText(prefix+maxValue*(2/3)/4, size, x-width/2-displacement, y+height/2*(1/4), z);
+			texts[3] = makeText(prefix+maxValue*(2/3)/8, size, x-width/2-displacement, y+height/2*(1/8), z);
+			for(var i = 0; i < texts.length; i++)
+			{
+				indicator.add(texts[i]);
+			}
+			if(rotation != undefined)
+				indicator.rotation.y = rotation;
+			return indicator;
+		}
+
 		//makes the q column chart
 		function chartQuad(data, normalizedTo, totalSize, x, y, z, colors, isMoney){
 			var SQUARE_CHART_SIZE = totalSize/2;//the size of each pillar
@@ -296,7 +367,7 @@
 			return cube;
 		}
 		function makeText(theText, size, x, y, z){
-			var material = new THREE.MeshLambertMaterial( { color: 0x212121, ambient: 0x212121, shading: THREE.FlatShading, overdraw: true } );
+			var material = new THREE.MeshLambertMaterial( { color: 0x3f403f, ambient: 0x3f403f, shading: THREE.FlatShading, overdraw: true } );
 			//get text from hash (?)
 			var hash = document.location.hash.substr( 1 );
 
