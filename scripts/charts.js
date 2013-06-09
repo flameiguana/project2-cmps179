@@ -9,6 +9,7 @@
 			country
 			*/
 			//cd, vinyl (oldest to newest)
+			
 			var colors = [0x74E868, 0x4AE83A, 0x14D100, 0x329D27, 0x08a5d1, 0x078fb5, 0x057d9f, 0x056682]
 			chartPrices[0] = new chartQuad([34, 6, 10, 12, 83, 46, 75, 21], 100, unit, 0, unit/2, 0, colors, true);
 			chartPrices[1] = new chartQuad([4, 15, 5, 19, 115, 30, 118, 22], 100, unit, 0, unit/2, 0, colors, true);

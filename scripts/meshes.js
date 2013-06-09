@@ -1,5 +1,5 @@
 //images are oldest to newest
-function baseChunk(z, unit, color, covers, genre){
+function baseChunk(z, unit, color, covers, genre, genreID){
 
 	var ALBUM_COUNT = 4;
 	var depth = unit;
@@ -32,6 +32,7 @@ function baseChunk(z, unit, color, covers, genre){
 	console.log(z);
 	//put it somewhere near bottom. a guesttimate
 	mesh.position.set(0, -(unit*1.25),z);
+	mesh.genreID = genreID;
 	return mesh;
 }
 

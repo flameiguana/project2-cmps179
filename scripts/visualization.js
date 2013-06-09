@@ -7,6 +7,7 @@ var cw = $container.width();
 $container.css({'height': (cw * .5625) +'px'});
 $('#usage').css({'height' : (cw * .5625) +'px'})
 var WIDTH = $container.width();
+
 var HEIGHT = $container.height();
 var mouseX = 0; 
 var mouseY = 0;
@@ -16,13 +17,12 @@ var ASPECT = WIDTH/HEIGHT;
 var NEAR = -1000;
 var FAR = 1000;
 
-
 /*-------------Set up scene essentials --------------- */
 
 //Change this to support Safari
 var renderer = new THREE.WebGLRenderer();
-
-
+renderer.setSize(WIDTH, HEIGHT);
+$container.append(renderer.domElement);
 var scene = new THREE.Scene();
 
 ///Make this window size independent
@@ -44,12 +44,13 @@ var unit = HEIGHT * .26;
 var rows = 4;
 var segments = [];
 var covers = ["img/pop.jpg", "img/hiphop.jpg", "img/rock.jpg", "img/country.jpg"];
-var genres = ["img/genres/p.png", "img/genres/h.png", "img/genres/r.png", "img/genres/c.png", ]
+var genres = ["img/genres/p.png", "img/genres/h.png", "img/genres/r.png", "img/genres/c.png"];
+var genreIDs = ["pop", "hip hop", "rock", "country"];
 var colors = [0xFF0000, 0xFF7A00, 0x03899C, 0x00CC00];
 
 for(var i = 0; i < rows; i++){
 	var z = (1 - i) * unit + unit/2;
-	segments[i] = new baseChunk(z, unit, colors[i], covers[i], genres[i]);
+	segments[i] = new baseChunk(z, unit, colors[i], covers[i], genres[i], genreIDs[i]);
 	scene.add(segments[i]);
 }
 
@@ -80,10 +81,6 @@ scene.add(hemiLight);*/
 
 var ambientLight = new THREE.AmbientLight(0xffffff);
 scene.add(ambientLight);
-
-
-renderer.setSize(WIDTH, HEIGHT);
-$container.append(renderer.domElement);
 
 //---------------Render Stuff-----------------
 
@@ -297,7 +294,38 @@ requestAnimationFrame(renderScene);
 
 /*Handle various keyboard clicks*/
 document.addEventListener('keydown', onKeyDown, false);
+$container.bind('click', onSceneClick);
 
+
+var projector = new THREE.Projector();
+function onSceneClick(event){
+	//event.preventDefault();
+	//middle of scene is 0, 0. This coverts to unit space [-1 to 1]
+	var vector = new THREE.Vector3((mouseX / WIDTH) * 2 -1, -(mouseY/HEIGHT) * 2 + 1, .5);
+	//note that this modifies vector
+	var ray = projector.pickingRay(vector, camera);
+	//return intersecting segments
+	var intersects = ray.intersectObjects(segments);
+
+	if ( intersects.length > 0 ) {
+		if(sideView){
+			console.log(intersects[0].object.genreID);
+		}
+		//Manually check for indivudual album collision, since it's one object.
+		else{
+			//0 is the middle of the bar
+			var x = vector.x;
+			if( x < 0 - unit)
+				console.log("80s");
+			else if(x < 0)
+				console.log("90s");
+			else if(x < unit)
+				console.log("00s");
+			else 
+				console.log("2012");
+		}
+	}
+}
 
 function onKeyDown ( event ) {
 	switch ( event.keyCode ) {
@@ -348,16 +376,17 @@ function onKeyDown ( event ) {
 	}
 }
 
-
-//For debugging
+var offset;
 document.addEventListener('mousemove', function(event){
-	//update mousex and y
-	mouseX = ( event.clientX - WIDTH/2 );
-    mouseY = ( event.clientY - HEIGHT/2 );
+	//update mousex and y relative to canvas
+	 offset = $container.offset();
+	mouseX = ( event.pageX - offset.left);
+    mouseY = ( event.pageY - offset.top) ;
 }, false);
 
 
 /*
 //http://konrad.strack.pl/blog/image-concatenation-with-imagemagick#.UaMB80BwqrQ
 http://www.elated.com/articles/rotatable-3d-product-boxshot-threejs/
+http://css-tricks.com/snippets/jquery/get-x-y-mouse-coordinates/
 */
