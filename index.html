@@ -21,7 +21,12 @@
 		<p>The albums were chosen based on sales numbers. You can read more about the selection process in the section below the visualization.</p>
 		<p>The aim of our visualization is to present the above values in a way that is easy to digest. The use of the 3D allows the reader to look at the data album by album, format by format, and genre by genre straightforwardly. Note that sales count and average revenue were plotted separately. These should be seen as two independent data points of interest.</p>
 	</div>
-	<div id = "container"></div>
+	<div id = "container-container">
+		<div class="chart-indicator" id="sales"><img src="img/ticket.png"/> <span class="chart-text">Sales Count<span></div>
+		<div class="chart-indicator" id="price" style="display:none"><img src="img/billing.png"/> <span class="chart-text">Average Price<span></div>
+		<div id = "container">
+		</div>
+	</div>
 	<div id = "usage" class = "textual">
 		<br>
 		<h3>Usage</h3>
@@ -71,5 +76,13 @@
 	<script id ="font" type="text/javascript" src="fonts/gentilis_regular.typeface.js"></script>
 	<script id="charts" type="text/javascript" src="scripts/charts.js"></script>
 	<script id="visualization" type="text/javascript" src="scripts/visualization.js"></script>
+	<script type="text/javascript">
+		$(".chart-indicator").on("mouseenter", function(){
+			$(".chart-indicator .chart-text").css("display", "inline");
+		});
+		$(".chart-indicator").on("mouseleave", function(){
+			$(".chart-indicator .chart-text").css("display", "none");
+		});
+	</script>
 </body>
 </html>

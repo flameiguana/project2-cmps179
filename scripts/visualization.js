@@ -101,7 +101,7 @@ var canRotateCamera = true;
 var sideView = false;
 var animationTime = 600;
 var easingFunction = TWEEN.Easing.Cubic.Out;
-function rotateCamera(switchAfterwards){
+function rotateCamera(){
 
 	canRotateCamera = false;
 	if(camera.position.x > 490)
@@ -161,8 +161,6 @@ function rotateCamera(switchAfterwards){
 			});
 		moveToSide.start();
 	}
-	if(switchAfterwards)
-		switchCharts();
 }
 
 var shouldStack = false;

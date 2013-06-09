@@ -44,6 +44,21 @@ canvas
 	border-radius: 8px;
 }
 
+.chart-indicator
+{
+	font-size: 22px;
+	font-family: Verdana;
+	color: #3f403f;
+	display: block;
+	height: 0px;
+	position: relative;
+	left: 20px;
+	top: 20px;
+}
+.chart-text{
+	display: none;
+}
+
 h2, h3
 {
 	text-align: center;
