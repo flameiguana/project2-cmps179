@@ -35,7 +35,6 @@
 			if(viewingMoney){
 				$("#sales").css("display", "none");
 				$("#price").css("display", "block");
-				$("#price .text").fadeOut(1000);
 				for(var i = 0; i < segments.length; i++)
 				{
 					segments[i].remove(chartPrices[i].chart);
