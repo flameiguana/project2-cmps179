@@ -7,7 +7,7 @@ function baseChunk(z, unit, color, covers, genre){
 	var height = unit;
 	var coverMaterials = [];
 
-	var baseColor = new THREE.MeshLambertMaterial({color: color});
+	var baseColor = new THREE.MeshLambertMaterial({color: color, ambient: color});
 	var genreFace = new THREE.MeshLambertMaterial(
 		{
 			//transparent: true,

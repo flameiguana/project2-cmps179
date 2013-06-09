@@ -45,7 +45,7 @@ var rows = 4;
 var segments = [];
 var covers = ["img/pop.jpg", "img/hiphop.jpg", "img/rock.jpg", "img/country.jpg"];
 var genres = ["img/genres/p.png", "img/genres/h.png", "img/genres/r.png", "img/genres/c.png", ]
-var colors = [0xFFF826, 0xBAF325, 0xCD1F94, 0xA359DC];
+var colors = [0xFF0000, 0xFF7A00, 0x03899C, 0x00CC00];
 
 for(var i = 0; i < rows; i++){
 	var z = (1 - i) * unit + unit/2;
@@ -60,7 +60,7 @@ var charts = makeCharts(segments);
 /*-----------------Lighting--------------------*/
 //Use three directional lights to make boxes not look flat.
 
-var frontLight = new THREE.DirectionalLight(0xFFFFFF, .85);
+/*var frontLight = new THREE.DirectionalLight(0xFFFFFF, .85);
 frontLight.position.set(0, 1, 1);
 scene.add(frontLight);
 
@@ -70,14 +70,17 @@ scene.add(rightLight);
 
 var leftLight = new THREE.DirectionalLight(0xFFFFFF, 0.6);
 leftLight.position.set(-1, 1, 0);
-scene.add(leftLight);
+scene.add(leftLight);*/
 
 /*Don't like this:
 hemiLight = new THREE.HemisphereLight( 0xffffff, 0xffffff, 0.5 );
 hemiLight.color.setHSL( 0.6, 0.75, 1 );
 hemiLight.groundColor.setHSL( 0.095, 0.5, 1 );
-scene.add(hemiLight);
-*/
+scene.add(hemiLight);*/
+
+var ambientLight = new THREE.AmbientLight(0xffffff);
+scene.add(ambientLight);
+
 
 renderer.setSize(WIDTH, HEIGHT);
 $container.append(renderer.domElement);
@@ -318,10 +321,8 @@ function onKeyDown ( event ) {
 			}
 			break;
 		case 83: /*s*/
-			if(canCycle && !sideView)
-				switchCharts();
-			else
-				rotateCamera(true);
+			if(canCycle)
+				switchCharts(sideView);
 			break;
 		case 70: /*f*/
 			var scale = 1.25;
