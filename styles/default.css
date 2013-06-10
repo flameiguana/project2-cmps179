@@ -136,4 +136,16 @@ h4
 	padding: 10px;
 	text-align: center;
 	display: none;
+	border-radius: 5px;
+}
+#mouse-stalker
+{
+	position: fixed;
+	padding: 3px 10px 3px 10px;
+	background-color:#212121;
+	font-size: 22px;
+	font-family: Verdana;
+	color: #fff;
+	cursor: default;
+	border-radius: 5px;
 }

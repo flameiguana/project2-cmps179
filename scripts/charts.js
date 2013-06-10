@@ -98,6 +98,7 @@
 					chartPrices[i].unstackImmediately();
 				}
 			}
+			updateHover();
 		}
 
 		function makeFlatMaterial(sampleColor){return new THREE.MeshLambertMaterial( { color: sampleColor, ambient: sampleColor, shading: THREE.FlatShading, overdraw: true } );}
@@ -136,7 +137,7 @@
 			texts[0] = makeText(prefix+maxValue*(2/3), size, x-width/2-displacement, y+height/2, z);
 			texts[1] = makeText(prefix+maxValue*(2/3)/2, size, x-width/2-displacement, y+height/2*(1/2), z);
 			texts[2] = makeText(prefix+maxValue*(2/3)/4, size, x-width/2-displacement, y+height/2*(1/4), z);
-			texts[3] = makeText(prefix+maxValue*(2/3)/8, size, x-width/2-displacement, y+height/2*(1/8), z);
+			texts[3] = makeText((prefix+(maxValue*(2/3)/8).toFixed(0)), size, x-width/2-displacement, y+height/2*(1/8), z);
 			for(var i = 0; i < texts.length; i++)
 			{
 				indicator.add(texts[i]);
@@ -196,6 +197,11 @@
 				totalHeightFront += this.pillarsFront[i].height;
 				this.positionsYAlt[i+4] = totalHeightBack+this.pillarsBack[i].height/2;
 				totalHeightBack += this.pillarsBack[i].height;
+				var prefix = "";
+				if(isMoney)
+					prefix = "$";
+				this.pillarsFront[i].pillar["chartData"] = prefix + data[i];
+				this.pillarsBack[i].pillar["chartData"] = prefix + data[i+4];
 			}
 
 			//backdrop
@@ -369,6 +375,7 @@
 			var material = new THREE.MeshLambertMaterial( { color: 0x3f403f, ambient: 0x3f403f, shading: THREE.FlatShading, overdraw: true } );
 			//get text from hash (?)
 			var hash = document.location.hash.substr( 1 );
+
 				if ( hash.length !== 0 ) {
 
 					theText = hash;
@@ -397,3 +404,42 @@
 
 				return text;
 		}
+
+//Im sorry
+var dataSales = {
+	'pop' : {
+		'cd' : [180, 39, 72, 101],
+		'vinyl' : [369, 12, 1, 17]
+	},
+	'hip-hop' : {
+		'cd' : [57,35,59,26],
+		'vinyl' : [22,8,2,2]
+	},
+	'rock' : {
+		'cd' : [112, 160, 63, 63],
+		'vinyl' : [114, 7, 47, 25]
+	},
+	'country' : {
+		'cd' : [4, 60, 0, 28],
+		'vinyl' : [1, 0, 0, 1]
+	}
+};
+
+var dataPrices = {
+	'pop' : {
+		'cd' : [34, 6, 10, 12],
+		'vinyl' : [83, 46, 75, 21]
+	},
+	'hip-hop' : {
+		'cd' : [4, 15, 5, 19],
+		'vinyl' : [115, 30, 118, 22]
+	},
+	'rock' : {
+		'cd' : [14, 4, 21, 11],
+		'vinyl' : [19, 24, 70, 53]
+	},
+	'country' : {
+		'cd' : [6, 4, 0, 8],
+		'vinyl' : [20, 0, 0, 13]
+	}
+};
