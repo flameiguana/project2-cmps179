@@ -398,14 +398,3 @@
 
 				return text;
 		}
-
-//Im sorry
-
-
-
-/*
-80s Hip Hop
-Will Smith
-Coolest Guy Ever
-1984
-*/
