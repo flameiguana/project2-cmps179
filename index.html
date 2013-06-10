@@ -90,12 +90,7 @@
 			}
 		});
 		$(".cycle-indicator").on("click", function(){
-			if(overViewMode){
-				changeStacks();
-			}
-			else if(canRotateCamera){
-				rotateCamera();
-			}
+			cycleBlock(segments);
 		});
 	</script>
 </body>
