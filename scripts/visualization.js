@@ -298,7 +298,7 @@ requestAnimationFrame(renderScene);
 
 /*Handle various keyboard clicks*/
 document.addEventListener('keydown', onKeyDown, false);
-$container.bind('click', onSceneClick);
+//$container.bind('click', updateHover);
 
 //Creates the popup
 function generateInfo(genreID, albumID, year){
@@ -315,7 +315,7 @@ function generateInfo(genreID, albumID, year){
 }
 
 var projector = new THREE.Projector();
-function onSceneClick(event){
+function updateHover(event){
 	//event.preventDefault();
 	//middle of scene is 0, 0. This coverts to unit space [-1 to 1]
 	var vector = new THREE.Vector3((mouseX / WIDTH) * 2 -1, -(mouseY/HEIGHT) * 2 + 1, .5);
@@ -355,6 +355,17 @@ function onSceneClick(event){
 			generateInfo(genreID, albumID, year);
 		}
 	}
+
+	intersects = ray.intersectObjects(scene.children, true);
+
+	$("#mouse-stalker").css("display", "none")
+
+	if(intersects[0]!=undefined && intersects[0].object.chartData !=undefined)
+		{
+			//console.log(intersects[0].object.chartData);
+			$("#mouse-stalker").css("display", "block")
+			$("#mouse-stalker").html(intersects[0].object.chartData);
+		}
 }
 
 function onKeyDown ( event ) {
@@ -412,6 +423,9 @@ document.addEventListener('mousemove', function(event){
 	offset = $container.offset();
 	mouseX = ( event.pageX - offset.left);
     mouseY = ( event.pageY - offset.top) ;
+    $("#mouse-stalker").css("top", event.y-32)
+	$("#mouse-stalker").css("left", event.x+2)
+    updateHover();
 }, false);
 
 

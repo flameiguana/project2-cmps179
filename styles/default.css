@@ -137,3 +137,14 @@ h4
 	text-align: center;
 	display: none;
 }
+#mouse-stalker
+{
+	position: fixed;
+	padding: 3px 10px 3px 10px;
+	background-color:#212121;
+	font-size: 22px;
+	font-family: Verdana;
+	color: #fff;
+	cursor: default;
+	border-radius: 5px;
+}
