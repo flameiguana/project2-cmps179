@@ -370,7 +370,6 @@
 			var material = new THREE.MeshLambertMaterial( { color: 0x3f403f, ambient: 0x3f403f, shading: THREE.FlatShading, overdraw: true } );
 			//get text from hash (?)
 			var hash = document.location.hash.substr( 1 );
-
 				if ( hash.length !== 0 ) {
 
 					theText = hash;
