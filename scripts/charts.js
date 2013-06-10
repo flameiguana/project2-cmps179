@@ -18,7 +18,7 @@
 			//cd, vinyl (oldest to newest)
 
 
-			var colors = [0x74E868, 0x4AE83A, 0x14D100, 0x329D27, 0x08a5d1, 0x078fb5, 0x057d9f, 0x056682]
+			var colors = [0x0BD108, 0x0AB507, 0x079F05, 0x068205, 0x08a5d1, 0x078fb5, 0x057d9f, 0x056682]
 			chartPrices[0] = new chartQuad([34, 6, 10, 12, 83, 46, 75, 21], maxPrice, unit, 0, unit/2, 0, colors, true);
 			chartPrices[1] = new chartQuad([4, 15, 5, 19, 115, 30, 118, 22], maxPrice, unit, 0, unit/2, 0, colors, true);
 			chartPrices[2] = new chartQuad([14, 4, 21, 11, 19, 24, 70, 53], maxPrice, unit, 0, unit/2, 0, colors, true);
