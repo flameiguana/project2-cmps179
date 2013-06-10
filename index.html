@@ -33,7 +33,9 @@
 			<div class="cycle-indicator"> <img class="chart-icon" src="img/cycle.png"/> <span class="view-text">Cycle Genre</span></div>
 			<div style="clear: both"></div>
 		</div>
-					<div class="key"><span class="view-text">sdfsdfds</span></div>
+		<div class="key" style="top: -105px;"><img class="chart-icon" src="styles/blue.png"/> <span class="view-text">Vinyl</span></div>
+		<div style="clear: both"></div>
+		<div class="key" style="top: -90px;"><img class="chart-icon" src="styles/green.png"/> <span class="view-text">CDs</span></div>
 	</div>
 	<div id = "comments" class="textual">
 		<h2>Additional Remarks</h2>
@@ -59,8 +61,6 @@
 
 		<p>Another question the reader may ask is, "Why did you choose to use the highest selling albums?" The main reason is that we wanted to be unbiased. Two alternatives were considered. One of them is that we pick our own favorite albums and graph their data. The other one was that we look at music critics' best albums of the decade list for a particular genre and collect data on some of those. Higher sales seemed like the more straighforward one. If more time had been available, a bonus chart would have been provided with albums that we like.</p>
 		<p>We also considered collecting data on jazz albums, but sales were so low that information on the highest selling per decade was difficult to obtain. It is a shame, because a quick eBay search of a few jazz albums reveals that Vinyl and CD listing numbers are almost on par.</p>
-		<h4>Extra Feature</h4>
-		<p>Although not very useful, <b>F</b> will toggle overview mode, which will let you see how the scene is laid out. The other keys still work.</p>
 	</div>
 	<div id = "credits" class= "textual">
 		<p>Site by Gerardo Perez &amp; Andrew Duensing</p>
@@ -69,11 +69,12 @@
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 	<script src="scripts/tween.min.js"> </script>
 	<script src="scripts/three.js"></script>
+	<script id="data" type="text/javascript" src="data/album-info.js"></script>
 	<script id="meshes" type="text/javascript" src="scripts/meshes.js"></script>
 	<script id ="font" type="text/javascript" src="fonts/gentilis_regular.typeface.js"></script>
 	<script id="charts" type="text/javascript" src="scripts/charts.js"></script>
 	<script id="visualization" type="text/javascript" src="scripts/visualization.js"></script>
-	<script id="data" type="text/javascript" src="data/album-info.js"></script>
+
 	<script type="text/javascript">
 		$(".chart-indicator").on("click", function(){
 			if(canCycle)

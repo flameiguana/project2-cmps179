@@ -33,7 +33,6 @@
 			for(var i = 0; i < segments.length; i++)
 				segments[i].add(chartPrices[i].chart);
 
-
 			//make the indicators
 			indicatorPrices[0] = indicators(maxPrice*3, 0, -(unit*.75), unit*2.1, unit*chartSales.length, MAX_HEIGHT*4, 0x3f403f, '$');
 			indicatorPrices[1] = indicators(maxPrice*3, 0, -(unit*.75), unit*2.1, unit*chartSales.length, MAX_HEIGHT*4, 0x3f403f, '$', Math.PI/2);
@@ -406,7 +405,6 @@
 				return text;
 		}
 
-//Im sorry
 var dataSales = {
 	'pop' : {
 		'cd' : [180, 39, 72, 101],
