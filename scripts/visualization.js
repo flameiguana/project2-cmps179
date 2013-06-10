@@ -313,25 +313,34 @@ function onSceneClick(event){
 	var intersects = ray.intersectObjects(segments);
 
 	if ( intersects.length > 0 ) {
+		var genreID = intersects[0].object.genreID;
+		console.log(genreID);
 		if(sideView){
-			console.log(intersects[0].object.genreID);
+			
 		}
 		//Manually check for indivudual album collision, since it's one object.
 		else{
 			//0 is the middle of the bar
 			var x = vector.x;
+			var albumID;
+			var year;
 			if( x < 0 - unit){
-				console.log("80s" +  dataPrices.pop.vinyl[0]);
+				albumID = 0;
+				year = "80s";
 			}
 			else if(x < 0){
-				console.log("90s");
+				albumID = 1;
+				year = "90s";
 			}
 			else if(x < unit){
-				console.log("00s");
+				albumID = 2;
+				year = "00s";
 			}
 			else{ 
-				console.log("2012");
+				albumID = 3;
+				year = "2012";
 			}
+			console.log(year + " " + dataPrices[genreID].vinyl[albumID]);
 		}
 	}
 }
