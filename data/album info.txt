@@ -1,75 +1,93 @@
-Thriller
-Michael Jackson
-Pop/R&B
-1982
+var releaseInfo = {
+	'pop' : [{
+			title: Thriller,
+			artist: Michael Jackson,
+			year: 1982
+		},
 
-The Bodyguard
-Whitney Houston
-Pop/R&B
-1992
+		{
+			title: The Bodyguard,
+			artist: Whitney Houston,
+			year: 1992
+		},
 
-The Emancipation of Mimi
-Mariah Carey
-Pop/R&B
-2005
+		{
+			title: The Emancipation of Mimi,
+			artist: Mariah Carey,
+			year: 2005
+		},
 
+		{
+			title: 21,
+			artist: Adele,
+			year: 2012
+		}]
 
-21
-Adele
-Pop/R&B
-2012
+	'hip-hop' :
+		[{
+			title: Licensed to Ill,
+			artist: Beasty Boys,
+			year: 1986
+		},
 
-Licensed to Ill
-Beasty Boys
-Hip Hop
-1986
+		{
+			title: ALl Eyez on Me,
+			artist: 2Pac,
+			year: 1996
+		},
 
-ALl Eyez on Me
-2Pac
-Hip Hop
-1996
+		{
+			title: The Eminmen SHow,
+			artist: Eminem,
+			year: 2002
+		},
 
-The Eminmen SHow
-Eminem
-Hip Hop
-2002
+		{
+			title: Pink Friday: Roman Reloaded,
+			artist: Nicki Minaj,
+			year: 2012
+		}],
 
-Pink Friday: Roman Reloaded
-Nicki Minaj
-Hip Hop
-2012
+	'rock' : [{
+			title: Back in Black,
+			artist: AC DC,
+			year: 1980
+		},
 
-Garth Brooks
-Garth Brooks
-Country
-1989
+		{
+			title: Jagged Little Pill,
+			artist: Alanis Morissette,
+			year: 1995
+		},
 
-No Fences
-Garthe Brookes
-Country
-1990
+		{
+			title: Hybrid Theory,
+			artist: Linkin Park,
+			year: 2000
+		},
 
-Tornado
-Little Big Town
-Country
-2012
+		{
+			title: El Camino,
+			artist: The Black Keys,
+			year: 2012
+		}],
 
-Back in Black
-AC DC
-Rock
-1980
+	'country' :
+		[{
+			title: Garth Brooks,
+			artist: Garth Brooks,
+			year: 1989
+		},
 
-Jagged Little Pill
-Alanis Morissette
-Rock
-1995
+		{
+			title: No Fences,
+			artist: Garthe Brookes,
+			year: 1990
+		},
 
-Hybrid Theory
-Linkin Park
-Rock
-2000
-
-El Camino
-The Black Keys
-Rock
-2012
+		{
+			title: Tornado,
+			artist: Little Big Town,
+			year: 2012
+		}]
+}

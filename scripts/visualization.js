@@ -300,17 +300,18 @@ requestAnimationFrame(renderScene);
 document.addEventListener('keydown', onKeyDown, false);
 $container.bind('click', onSceneClick);
 
+//Creates the popup
 function generateInfo(genreID, albumID, year){
 	var x = offset.left;
 	var y = offset.top;
 	var html = [];
 	//var h = "<div class='popup' style='" + style +  "'>test content</div>";
 	html.push("<h3>" + year + " " + genreID + "</h3>");
-	html.push("Michael Jackson");
-	html.push("<i>" + "Thriller" + "</i>");
+	html.push(releaseInfo[genreID][albumID].artist);
+	html.push("<i>" + releaseInfo[genreID][albumID].title + "</i>");
+	html.push(releaseInfo[genreID][albumID].year);
 	document.getElementById("album-info").innerHTML = html.join("<br>");
-	$albumDiv.css({'top' :  y + 'px', 'left' : x + 'px', 'display': 'inline'});
-
+	$albumDiv.css({'top' :  y + 'px', 'left' : x + 'px', 'display': 'inline', 'width' : unit*.75 + 'px'});
 }
 
 var projector = new THREE.Projector();
@@ -352,7 +353,6 @@ function onSceneClick(event){
 				year = "2012";
 			}
 			generateInfo(genreID, albumID, year);
-			console.log(year + " " + dataPrices[genreID].vinyl[albumID]);
 		}
 	}
 }
