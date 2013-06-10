@@ -182,97 +182,20 @@ function changeStacks(){
 }
 
 function cycleBlock(blocks){
-	//translate front one up, translate back, push all others forward, translate down
 	var current = counter;
-	var originalLocations = [];
 
-	//Store the initial locations.
 	for(var i = 0; i < rows; i++){
-		//copying by reference is bad
-		var position = {
-			x: segments[i].position.x,
-			y: segments[i].position.y,
-			z: segments[i].position.z
-		};
-
-		originalLocations[i] = position;
+		if(segments[i] != segments[current]){
+			segments[i].position.z += unit;
+		}
+		segments[current].position.z = -unit*1.5;
 	}
-
-	//Set up tweeen objects.
-	var moveUp = new TWEEN.Tween(
-		{
-			//TODO: also update its children. Object3d has children attribute
-			y: originalLocations[counter].y,
-			rotationX : 0
-		})
-		.to(
-			{
-			 y: originalLocations[counter].y - unit,
-			 rotationX : degToRad(90)
-			}, 400)
-		.easing(TWEEN.Easing.Linear.None)
-		.onUpdate(function(){
-			segments[current].position.y = this.y;
-			segments[current].rotation.x= this.rotationX;
-		});
-
-	var moveForward = new TWEEN.Tween(
-		{
-			orig : originalLocations,
-			zShift : 0
-		})
-		.to({zShift: unit}, 400)
-		.easing(TWEEN.Easing.Linear.None)
-		.onUpdate(function(){
-			for(var i = 0; i < rows; i++){
-				if(i != current){
-					segments[i].position.z = this.orig[i].z + this.zShift;
-				}
-			}
-		});
-
-	var moveBack = new TWEEN.Tween(
-	{
-		z: originalLocations[counter].z
-	})
-	.to({ z : originalLocations[counter].z - unit*(rows - 1) }, 400*2)
-	.easing(TWEEN.Easing.Linear.None)
-	.onUpdate(function(){
-		segments[current].position.z = this.z;
-	});
-
-	var moveDown = new TWEEN.Tween(
-	{
-		y: 0,
-		originalY: segments[current].position.y - unit, //recall that it will have been moved down
-		rotationX: degToRad(90)
-	})
-	.to(
-		{
-		 y : unit,
-		 rotationX : degToRad(360)
-		}, 400)
-	.easing(TWEEN.Easing.Linear.None)
-	.onUpdate(function(){
-		segments[current].position.y = this.originalY + this.y;
-		segments[current].rotation.x = this.rotationX;
-	})
-	.onComplete(function(){
-		canCycle = true; ///re enable key
-	});
-
-	//Chain all the animations together.
-	moveUp.chain(moveForward);
-	moveForward.chain(moveBack);
-	moveBack.chain(moveDown);
-
-	moveUp.start();
-
 	counter++;
 	if(counter === rows){
 		counter = 0;
 	}
 }
+
 
 var overViewMode = false;
 //This function calls itself when browser is ready to animate
@@ -284,10 +207,6 @@ function renderScene(){
 	}
 	camera.lookAt( scene.position );
 	TWEEN.update();
-	if(cycle === true){
-		cycleBlock(segments);
-		cycle = false;
-	}
 	renderer.render(scene, camera);
 	requestAnimationFrame(renderScene);
 	//console.log("hi");
@@ -330,7 +249,7 @@ function updateHover(event){
 			
 		}
 		//Manually check for indivudual album collision, since it's one object.
-		else{
+		else {
 			//0 is the middle of the bar
 			var x = vector.x;
 			var albumID;
@@ -373,10 +292,7 @@ function onKeyDown ( event ) {
 			directionalLight.visible = !directionalLight.visible;
 			break;
 		case 67: /*c*/
-			if(canCycle === true ){
-				cycle = true;
-				canCycle = false;
-			}
+			cycleBlock(segments);
 			break;
 		case 81: /*q*/
 			if(overViewMode){
