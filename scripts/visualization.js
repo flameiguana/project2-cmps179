@@ -306,7 +306,7 @@ function generateInfo(genreID, albumID, year){
 	var y = offset.top;
 	var html = [];
 	//var h = "<div class='popup' style='" + style +  "'>test content</div>";
-	html.push("<h3>" + year + " " + genreID + "</h3>");
+	html.push("<span style='color: #FFA72D'><h3>" + year + " " + genreID + "</h3></span>");
 	html.push(releaseInfo[genreID][albumID].artist);
 	html.push("<i>" + releaseInfo[genreID][albumID].title + "</i>");
 	html.push(releaseInfo[genreID][albumID].year);
@@ -326,7 +326,6 @@ function onSceneClick(event){
 
 	if ( intersects.length > 0 ) {
 		var genreID = intersects[0].object.genreID;
-		console.log(genreID);
 		if(sideView){
 			
 		}
@@ -338,15 +337,15 @@ function onSceneClick(event){
 			var year;
 			if( x < 0 - unit){
 				albumID = 0;
-				year = "80s";
+				year = "'80s";
 			}
 			else if(x < 0){
 				albumID = 1;
-				year = "90s";
+				year = "'90s";
 			}
 			else if(x < unit){
 				albumID = 2;
-				year = "00s";
+				year = "2000s";
 			}
 			else{ 
 				albumID = 3;
