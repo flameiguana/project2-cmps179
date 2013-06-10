@@ -29,21 +29,11 @@
 			<div style="clear: both"></div>
 			<div class="view-indicator" id="decade"> <img class="chart-icon" src="img/statistics.png"/> <span class="view-text">Decade View</span></div>
 			<div class="view-indicator" id="genre" style="display:none"><img class="chart-icon" src="img/database.png"/> <span class="view-text">Genre View</span></div>
-
+			<div style="clear: both"></div>
+			<div class="cycle-indicator"> <img class="chart-icon" src="img/cycle.png"/> <span class="view-text">Cycle Genre</span></div>
+			<div style="clear: both"></div>
 		</div>
-		
-	</div>
-	<div id = "usage" class = "textual">
-		<br>
-		<h3>Usage</h3>
-			<p><b>Q</b>: Alternate between front and side view. Side view shows totals per genre.</p>
-			<p><b>C</b>: Cycle genre currently in front to the back. Useful in front view.</p>
-			<p><b>S</b>: Switch between plotting total sales and average revenue.</p>
-		<h4>Color Legend</h4>
-		<ul>
-			<li id = "vinyl">Vinyl</li>
-			<li id = "cd">CD</li>
-		</ul>
+					<div class="key"><span class="view-text">sdfsdfds</span></div>
 	</div>
 	<div id = "comments" class="textual">
 		<h2>Additional Remarks</h2>
@@ -85,24 +75,20 @@
 	<script id="visualization" type="text/javascript" src="scripts/visualization.js"></script>
 	<script id="data" type="text/javascript" src="data/album-info.js"></script>
 	<script type="text/javascript">
-		$(".chart-indicator").on("mouseenter", function(){
-			$(".chart-indicator .chart-text").css("display", "inline");
-		});
-		$(".chart-indicator").on("mouseleave", function(){
-			$(".chart-indicator .chart-text").css("display", "none");
-		});
 		$(".chart-indicator").on("click", function(){
 			if(canCycle)
 				switchCharts(sideView);
 		});
 
-		$(".view-indicator").on("mouseenter", function(){
-			$(".view-indicator .view-text").css("display", "inline");
-		});
-		$(".view-indicator").on("mouseleave", function(){
-			$(".view-indicator .view-text").css("display", "none");
-		});
 		$(".view-indicator").on("click", function(){
+			if(overViewMode){
+				changeStacks();
+			}
+			else if(canRotateCamera){
+				rotateCamera();
+			}
+		});
+		$(".cycle-indicator").on("click", function(){
 			if(overViewMode){
 				changeStacks();
 			}

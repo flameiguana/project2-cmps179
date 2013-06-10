@@ -99,12 +99,15 @@ var animationTime = 600;
 var easingFunction = TWEEN.Easing.Cubic.Out;
 function rotateCamera(){
 
+	$("#album-info").fadeOut();
 	canRotateCamera = false;
 	if(camera.position.x > 490)
 		sideView = false;
 	else
 		sideView = true;
 	if(!sideView){
+		$("#genre").css("display", "none");
+		$("#decade").css("display", "block");
 		for(var i = 0; i < charts.length; i++)
 			charts[i].unstack(animationTime, easingFunction);
 		var moveToFront = new TWEEN.Tween(
@@ -128,12 +131,12 @@ function rotateCamera(){
 			.onComplete(function(){
 				canRotateCamera = true; ///re enable key
 				//switch the text/icon
-				$("#genre").css("display", "none");
-				$("#decade").css("display", "block");
 			});
 		moveToFront.start();
 	}
 	else{
+		$("#decade").css("display", "none");
+		$("#genre").css("display", "block");
 		for(var i = 0; i < charts.length; i++)
 			charts[i].stack(animationTime, easingFunction);
 		var moveToSide = new TWEEN.Tween(
@@ -157,8 +160,6 @@ function rotateCamera(){
 			.onComplete(function(){
 				canRotateCamera = true; ///re enable key
 				//switch the text/icon
-				$("#decade").css("display", "none");
-				$("#genre").css("display", "block")
 			});
 		moveToSide.start();
 	}
@@ -328,11 +329,11 @@ function updateHover(event){
 		var genreID = intersects[0].object.genreID;
 		console.log(genreID);
 		if(sideView){
-			
 		}
 		//Manually check for indivudual album collision, since it's one object.
 		else{
 			//0 is the middle of the bar
+			$("#album-info").css("display", "inline");
 			var x = vector.x;
 			var albumID;
 			var year;

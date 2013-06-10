@@ -1,6 +1,6 @@
 html
 {
-	background-color: #208EB0;
+	background-color: #056682;
 }
 
 body
@@ -20,7 +20,7 @@ body
 }
 #container-container
 {
-	width: 80%;
+	width: 100%;
 }
 .chart-icon
 {
@@ -43,7 +43,7 @@ canvas
 	height: 100%;
 	position: relative;
 	z-index: 0;
-	top:-55px;
+	top:-85px;
 }
 
 /*------------Text Stuff--------------*/
@@ -55,7 +55,7 @@ canvas
 	border-radius: 8px;
 }
 
-.chart-indicator, .view-indicator
+.chart-indicator, .view-indicator, .cycle-indicator
 {
 	font-size: 22px;
 	font-family: Verdana;
@@ -67,9 +67,25 @@ canvas
 	right: 20px;
 	z-index: 500;
 }
+.key
+{
+	font-size: 22px;
+	font-family: Verdana;
+	color: #3f403f;
+	display: block;
+	position: relative;
+	height: 0px;
+	top: -45px;
+	right: 20px;
+	z-index: 500;
+}
 .view-indicator
 {
 	top: 25px;
+}
+.cycle-indicator
+{
+	top:30px;
 }
 .view-indicator:hover
 {
@@ -79,8 +95,11 @@ canvas
 {
 	cursor: pointer;
 }
+.cycle-indicator:hover
+{
+	cursor: pointer;
+}
 .chart-text, .view-text{
-	display: none;
 	float:right;
 	padding-right:10px;
 }
@@ -130,7 +149,7 @@ h4
 }
 
 #album-info{
-	background: rgba(0,0,0,0.9);
+	background: #212121;
 	position: absolute;
 	color: #fff;
 	padding: 10px;
