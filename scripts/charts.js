@@ -405,7 +405,6 @@
 				return text;
 		}
 
-//Im sorry
 var dataSales = {
 	'pop' : {
 		'cd' : [180, 39, 72, 101],
