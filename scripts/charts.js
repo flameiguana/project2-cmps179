@@ -138,7 +138,7 @@
 			texts[0] = makeText(prefix+maxValue*(2/3), size, x-width/2-displacement, y+height/2, z);
 			texts[1] = makeText(prefix+maxValue*(2/3)/2, size, x-width/2-displacement, y+height/2*(1/2), z);
 			texts[2] = makeText(prefix+maxValue*(2/3)/4, size, x-width/2-displacement, y+height/2*(1/4), z);
-			texts[3] = makeText(prefix+maxValue*(2/3)/8, size, x-width/2-displacement, y+height/2*(1/8), z);
+			texts[3] = makeText((prefix+(maxValue*(2/3)/8).toFixed(0)), size, x-width/2-displacement, y+height/2*(1/8), z);
 			for(var i = 0; i < texts.length; i++)
 			{
 				indicator.add(texts[i]);
