@@ -16,7 +16,8 @@
 			var maxPrice = 100;
 			var maxUnit = 150;
 			//cd, vinyl (oldest to newest)
-			
+
+
 			var colors = [0x74E868, 0x4AE83A, 0x14D100, 0x329D27, 0x08a5d1, 0x078fb5, 0x057d9f, 0x056682]
 			chartPrices[0] = new chartQuad([34, 6, 10, 12, 83, 46, 75, 21], maxPrice, unit, 0, unit/2, 0, colors, true);
 			chartPrices[1] = new chartQuad([4, 15, 5, 19, 115, 30, 118, 22], maxPrice, unit, 0, unit/2, 0, colors, true);
@@ -40,7 +41,6 @@
 			indicatorSales[1] = indicators(maxUnit*3, 0, -(unit*.75), unit*2.1, unit*chartSales.length, MAX_HEIGHT*4, 0x3f403f, '', Math.PI/2);
 			scene.add(indicatorPrices[0]);
 			scene.add(indicatorPrices[1]);
-
 			viewingMoney = true;
 
 			return chartPrices;
@@ -399,3 +399,42 @@
 
 				return text;
 		}
+
+//Im sorry
+var dataSales = {
+	'pop' : {
+		'cd' : [180, 39, 72, 101],
+		'vinyl' : [369, 12, 1, 17]
+	},
+	'hip-hop' : {
+		'cd' : [57,35,59,26],
+		'vinyl' : [22,8,2,2]
+	},
+	'rock' : {
+		'cd' : [112, 160, 63, 63],
+		'vinyl' : [114, 7, 47, 25]
+	},
+	'country' : {
+		'cd' : [4, 60, 0, 28],
+		'vinyl' : [1, 0, 0, 1]
+	}
+};
+
+var dataPrices = {
+	'pop' : {
+		'cd' : [34, 6, 10, 12],
+		'vinyl' : [83, 46, 75, 21]
+	},
+	'hip-hop' : {
+		'cd' : [4, 15, 5, 19],
+		'vinyl' : [115, 30, 118, 22]
+	},
+	'rock' : {
+		'cd' : [14, 4, 21, 11],
+		'vinyl' : [19, 24, 70, 53]
+	},
+	'country' : {
+		'cd' : [6, 4, 0, 8],
+		'vinyl' : [20, 0, 0, 13]
+	}
+};

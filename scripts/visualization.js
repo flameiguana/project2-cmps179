@@ -45,7 +45,7 @@ var rows = 4;
 var segments = [];
 var covers = ["img/pop.jpg", "img/hiphop.jpg", "img/rock.jpg", "img/country.jpg"];
 var genres = ["img/genres/p.png", "img/genres/h.png", "img/genres/r.png", "img/genres/c.png"];
-var genreIDs = ["pop", "hip hop", "rock", "country"];
+var genreIDs = ["pop", "hip-hop", "rock", "country"];
 var colors = [0xFF0000, 0xFF7A00, 0x03899C, 0x00CC00];
 
 for(var i = 0; i < rows; i++){
@@ -320,14 +320,18 @@ function onSceneClick(event){
 		else{
 			//0 is the middle of the bar
 			var x = vector.x;
-			if( x < 0 - unit)
-				console.log("80s");
-			else if(x < 0)
+			if( x < 0 - unit){
+				console.log("80s" +  dataPrices.pop.vinyl[0]);
+			}
+			else if(x < 0){
 				console.log("90s");
-			else if(x < unit)
+			}
+			else if(x < unit){
 				console.log("00s");
-			else 
+			}
+			else{ 
 				console.log("2012");
+			}
 		}
 	}
 }
