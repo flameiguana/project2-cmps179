@@ -43,7 +43,7 @@ var unit = HEIGHT * .26;
 var rows = 4;
 var segments = [];
 var covers = ["img/pop.jpg", "img/hiphop.jpg", "img/rock.jpg", "img/country.jpg"];
-var genres = ["img/genres/p.png", "img/genres/h.png", "img/genres/r.png", "img/genres/c.png"];
+var genres = ["img/genres/p.jpg", "img/genres/h.jpg", "img/genres/r.jpg", "img/genres/c.jpg"];
 var genreIDs = ["pop", "hip-hop", "rock", "country"];
 var colors = [0xFF0000, 0xFF7A00, 0x03899C, 0x00CC00];
 
