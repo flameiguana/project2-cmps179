@@ -1,5 +1,4 @@
-console.log("Loaded"); 
-
+var $albumDiv = $('#album-info'); 
 var $container = $('#container');
 var cw = $container.width();
 //Set container height to width
@@ -7,7 +6,7 @@ var cw = $container.width();
 $container.css({'height': (cw * .5625) +'px'});
 $('#usage').css({'height' : (cw * .5625) +'px'})
 var WIDTH = $container.width();
-
+var offset;
 var HEIGHT = $container.height();
 var mouseX = 0; 
 var mouseY = 0;
@@ -301,6 +300,18 @@ requestAnimationFrame(renderScene);
 document.addEventListener('keydown', onKeyDown, false);
 $container.bind('click', onSceneClick);
 
+function generateInfo(genreID, albumID, year){
+	var x = offset.left;
+	var y = offset.top;
+	var html = [];
+	//var h = "<div class='popup' style='" + style +  "'>test content</div>";
+	html.push("<h3>" + year + " " + genreID + "</h3>");
+	html.push("Michael Jackson");
+	html.push("<i>" + "Thriller" + "</i>");
+	document.getElementById("album-info").innerHTML = html.join("<br>");
+	$albumDiv.css({'top' :  y + 'px', 'left' : x + 'px', 'display': 'inline'});
+
+}
 
 var projector = new THREE.Projector();
 function onSceneClick(event){
@@ -340,6 +351,7 @@ function onSceneClick(event){
 				albumID = 3;
 				year = "2012";
 			}
+			generateInfo(genreID, albumID, year);
 			console.log(year + " " + dataPrices[genreID].vinyl[albumID]);
 		}
 	}
@@ -394,10 +406,10 @@ function onKeyDown ( event ) {
 	}
 }
 
-var offset;
+
 document.addEventListener('mousemove', function(event){
 	//update mousex and y relative to canvas
-	 offset = $container.offset();
+	offset = $container.offset();
 	mouseX = ( event.pageX - offset.left);
     mouseY = ( event.pageY - offset.top) ;
 }, false);

@@ -438,3 +438,11 @@ var dataPrices = {
 		'vinyl' : [20, 0, 0, 13]
 	}
 };
+
+
+/*
+80s Hip Hop
+Will Smith
+Coolest Guy Ever
+1984
+*/

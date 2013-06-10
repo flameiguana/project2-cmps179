@@ -128,3 +128,13 @@ h4
 {
 	color: #3D3D3D;
 }
+
+#album-info{
+	background: rgba(0,0,0,0.9);
+	position: absolute;
+	color: #fff;
+	padding: 10px;
+	width: 160px;
+	text-align: center;
+	display: none;
+}
